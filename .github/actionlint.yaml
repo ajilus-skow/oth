@@ -1,0 +1,6 @@
+self-hosted-runner:
+  labels:
+    - oth-linux
+    - oth-mac
+
+config-variables: null

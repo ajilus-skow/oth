@@ -1,0 +1,82 @@
+name: Release iOS to TestFlight
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["oth-v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oth-ios-testflight
+  cancel-in-progress: false
+
+jobs:
+  archive-and-upload:
+    runs-on: [self-hosted, oth-mac]
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Install CocoaPods dependencies
+        run: cd apps/mobile/ios && pod install
+      - name: Install App Store Connect API key
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+        run: |
+          test -n "$APP_STORE_CONNECT_KEY_ID"
+          test -n "$APP_STORE_CONNECT_PRIVATE_KEY"
+          key_directory="$RUNNER_TEMP/app-store-connect"
+          mkdir -p "$key_directory"
+          printf '%s' "$APP_STORE_CONNECT_PRIVATE_KEY" > "$key_directory/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8"
+          chmod 600 "$key_directory/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8"
+          echo "APP_STORE_CONNECT_KEY_PATH=$key_directory/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8" >> "$GITHUB_ENV"
+      - name: Archive and export IPA
+        env:
+          APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+        run: |
+          set -euo pipefail
+          test -n "$APPLE_TEAM_ID"
+          export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+          xcodebuild -workspace apps/mobile/ios/oth.xcworkspace -scheme oth \
+            -configuration Release -destination generic/platform=iOS \
+            -archivePath "$RUNNER_TEMP/oth.xcarchive" DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            MARKETING_VERSION=0.1.0 CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
+            -allowProvisioningUpdates archive
+          xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/oth.xcarchive" \
+            -exportOptionsPlist apps/mobile/ios/ExportOptions.plist -exportPath "$RUNNER_TEMP/TestFlight" \
+            -allowProvisioningUpdates -authenticationKeyPath "$APP_STORE_CONNECT_KEY_PATH" \
+            -authenticationKeyID "$APP_STORE_CONNECT_KEY_ID" \
+            -authenticationKeyIssuerID "$APP_STORE_CONNECT_ISSUER_ID"
+      - name: Upload IPA to TestFlight
+        env:
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+        run: |
+          ipa=$(find "$RUNNER_TEMP/TestFlight" -maxdepth 1 -name '*.ipa' -print -quit)
+          test -n "$ipa"
+          mkdir -p "$HOME/.appstoreconnect/private_keys"
+          cp "$APP_STORE_CONNECT_KEY_PATH" "$HOME/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8"
+          xcrun altool --upload-app --type ios --file "$ipa" --apiKey "$APP_STORE_CONNECT_KEY_ID" --apiIssuer "$APP_STORE_CONNECT_ISSUER_ID"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: oth-ios-release-${{ github.run_id }}
+          path: ${{ runner.temp }}/TestFlight
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Remove App Store Connect private key
+        if: always()
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+        run: |
+          rm -f "$RUNNER_TEMP/app-store-connect/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8" \
+            "$HOME/.appstoreconnect/private_keys/AuthKey_${APP_STORE_CONNECT_KEY_ID}.p8"

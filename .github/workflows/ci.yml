@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  javascript:
+    runs-on: [self-hosted, oth-linux]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: make lint test format-check
+
+  ios-simulator:
+    runs-on: [self-hosted, oth-mac]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build iOS Simulator target
+        run: |
+          export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+          cd apps/mobile/ios
+          pod install
+          test -f oth.xcworkspace/contents.xcworkspacedata
+          xcodebuild -workspace oth.xcworkspace -scheme oth -sdk iphonesimulator \
+            -configuration Debug -derivedDataPath "$PWD/build" build CODE_SIGNING_ALLOWED=NO
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: oth-ios-simulator-${{ github.run_id }}
+          path: apps/mobile/ios/build/Build/Products/Debug-iphonesimulator/oth.app
+          if-no-files-found: warn
+          retention-days: 7
+
+  workflow-syntax:
+    runs-on: [self-hosted, oth-linux]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download actionlint
+        id: get_actionlint
+        run: bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        shell: bash
+      - name: Check GitHub Actions workflow syntax
+        run: ${{ steps.get_actionlint.outputs.executable }} -color
+        shell: bash

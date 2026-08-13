@@ -1,0 +1,25 @@
+{
+  "name": "on-the-hook",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "overrides": {
+    "react-native": "0.86.0"
+  },
+  "workspaces": [
+    "apps/mobile"
+  ],
+  "scripts": {
+    "format": "npm run format --workspaces --if-present",
+    "format:check": "npm run format:check --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
+  }
+}
