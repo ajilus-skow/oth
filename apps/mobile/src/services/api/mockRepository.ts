@@ -1,5 +1,5 @@
-import bootstrap from "../../fixtures/bootstrap.json";
-import menu from "../../fixtures/menu.json";
+import bootstrap from "../../content/bootstrap.json";
+import menu from "../../content/menu.json";
 import { type EventPage } from "../../domain/models";
 import { type AboutPage, createMobileApiRepository, type MobileApiRepository } from "./httpRepository";
 import { fakeScheduleService, type ScheduleQuery } from "./fakeScheduleService";
@@ -26,8 +26,30 @@ export const mockRepository: MobileRepository = {
   lastUpdatedAt: async () => null
 };
 
+const unavailableSchedule = () => Promise.reject(new Error("Truck schedule is unavailable."));
+
+export const bundledProductionRepository: MobileApiRepository = {
+  bootstrap: async () => bootstrap,
+  menu: async () => menu,
+  about: async () => mockAbout,
+  states: async () => [],
+  events: unavailableSchedule,
+  lastUpdatedAt: async () => null
+};
+
+function withOptionalRemote(baseUrl: string): MobileApiRepository {
+  const remote = createMobileApiRepository(baseUrl);
+  return {
+    bootstrap: async () => remote.bootstrap().catch(() => bundledProductionRepository.bootstrap()),
+    menu: async () => remote.menu().catch(() => bundledProductionRepository.menu()),
+    about: async () => remote.about().catch(() => bundledProductionRepository.about()),
+    states: () => remote.states(),
+    events: (query, signal) => remote.events(query, signal),
+    lastUpdatedAt: resource => remote.lastUpdatedAt(resource)
+  };
+}
+
 export function getMobileRepository(mockEnabled: boolean, apiBaseUrl?: string): MobileApiRepository {
   if (mockEnabled) return mockRepository;
-  if (!apiBaseUrl) throw new Error("A production mobile API repository has not been configured.");
-  return createMobileApiRepository(apiBaseUrl);
+  return apiBaseUrl ? withOptionalRemote(apiBaseUrl) : bundledProductionRepository;
 }

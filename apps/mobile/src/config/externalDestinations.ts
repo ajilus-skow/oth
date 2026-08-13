@@ -1,4 +1,4 @@
-import bootstrap from "../fixtures/bootstrap.json";
+import bootstrap from "../content/bootstrap.json";
 import { validateExternalUrl } from "../services/linking/externalLinks";
 
 type ExternalDestination = "jobs" | "store" | "franchise" | "privacy" | "terms";

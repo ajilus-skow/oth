@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import menu from "../../fixtures/menu.json";
+import menu from "../../content/menu.json";
 import { images } from "../../assets/registry";
 import { Card } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";

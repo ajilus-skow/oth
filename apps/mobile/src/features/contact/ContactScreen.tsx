@@ -1,5 +1,5 @@
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
-import bootstrap from "../../fixtures/bootstrap.json";
+import bootstrap from "../../content/bootstrap.json";
 import { Card, PrimaryButton, StatusMessage } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
 import { openExternalUrl, validateExternalUrl } from "../../services/linking/externalLinks";
