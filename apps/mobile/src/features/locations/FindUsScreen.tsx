@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Pressable, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
 import { Card, PrimaryButton, StatusMessage } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
 import type { TruckEvent } from "../../domain/models";
@@ -12,6 +12,9 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParams } from "../../app/navigation/AppNavigator";
 import { analytics, searchQueryType } from "../../analytics/analytics";
+import { ResourceState } from "../../design/ResourceState";
+import { selectUpcomingEvents } from "./selectEvents";
+import type { ScheduleState } from "../../services/api/fakeScheduleService";
 
 export function FindUsScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
@@ -22,6 +25,9 @@ export function FindUsScreen() {
   const [events, setEvents] = useState<TruckEvent[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+  const [showingSavedSchedule, setShowingSavedSchedule] = useState(false);
+  const [states, setStates] = useState<ScheduleState[]>([]);
   const repository = useMemo(
     () => getMobileRepository(mobileEnvironment.useMockData, mobileEnvironment.apiBaseUrl),
     []
@@ -34,7 +40,9 @@ export function FindUsScreen() {
       void repository
         .events({ query, state: state || undefined, from: date || undefined, to: date || undefined }, controller.signal)
         .then(page => {
-          setEvents(page.events);
+          setEvents(selectUpcomingEvents(page.events, new Date()));
+          setLastUpdated(page.updatedAt);
+          setShowingSavedSchedule(repository.sourceFor("events") === "cache");
           setError(null);
         })
         .catch(() => {
@@ -50,6 +58,13 @@ export function FindUsScreen() {
       clearTimeout(timer);
     };
   }, [date, query, repository, state]);
+
+  useEffect(() => {
+    void repository
+      .states()
+      .then(setStates)
+      .catch(() => setStates([]));
+  }, [repository]);
 
   async function findNearMe() {
     analytics.track({ name: "find_near_me_tapped" });
@@ -87,18 +102,6 @@ export function FindUsScreen() {
           />
           <View style={styles.filters}>
             <TextInput
-              accessibilityLabel="Filter by state"
-              autoCapitalize="characters"
-              maxLength={2}
-              onChangeText={value => {
-                setState(value.toUpperCase());
-                analytics.track({ name: "find_filter_changed", properties: { filter: "state" } });
-              }}
-              placeholder="State"
-              style={styles.smallInput}
-              value={state}
-            />
-            <TextInput
               accessibilityLabel="Filter by date"
               onChangeText={value => {
                 setDate(value);
@@ -121,11 +124,42 @@ export function FindUsScreen() {
               </Pressable>
             ) : null}
           </View>
+          {states.length ? (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.stateOptions}>
+              {states.map(option => (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityState={{ selected: state === option.code }}
+                  key={option.code}
+                  onPress={() => {
+                    setState(current => (current === option.code ? "" : option.code));
+                    analytics.track({ name: "find_filter_changed", properties: { filter: "state" } });
+                  }}
+                  style={[styles.stateOption, state === option.code && styles.stateOptionSelected]}
+                >
+                  <Text style={[styles.stateOptionText, state === option.code && styles.stateOptionTextSelected]}>
+                    {option.code}
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
+          ) : null}
           <PrimaryButton accessibilityLabel="Find a truck near me" onPress={() => void findNearMe()}>
             Find a Truck Near Me
           </PrimaryButton>
           {message ? <StatusMessage body={message} title={result?.ok ? "Nearby search" : "Search instead"} /> : null}
           {error ? <StatusMessage title="Schedule unavailable" body={error} /> : null}
+          {showingSavedSchedule ? (
+            <ResourceState
+              kind="stale"
+              title="Showing saved schedule"
+              body={
+                lastUpdated
+                  ? `Last updated ${new Date(lastUpdated).toLocaleString()}.`
+                  : "Refresh when online for the latest schedule."
+              }
+            />
+          ) : null}
           {refreshing ? <Text style={styles.muted}>Refreshing schedule…</Text> : null}
         </>
       }
@@ -180,14 +214,6 @@ const styles = StyleSheet.create({
   body: { color: colors.mutedInk, fontSize: 16, lineHeight: 23 },
   input: { backgroundColor: colors.white, borderColor: colors.border, borderWidth: 1, borderRadius: 10, padding: 12 },
   filters: { flexDirection: "row", alignItems: "center", gap: spacing.compact },
-  smallInput: {
-    backgroundColor: colors.white,
-    borderColor: colors.border,
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 12,
-    width: 75
-  },
   dateInput: {
     backgroundColor: colors.white,
     borderColor: colors.border,
@@ -197,6 +223,18 @@ const styles = StyleSheet.create({
     padding: 12
   },
   clear: { color: colors.brandBlue, fontWeight: "700" },
+  stateOptions: { gap: spacing.compact },
+  stateOption: {
+    borderColor: colors.brandBlue,
+    borderRadius: 999,
+    borderWidth: 1,
+    minHeight: 44,
+    paddingHorizontal: 14,
+    justifyContent: "center"
+  },
+  stateOptionSelected: { backgroundColor: colors.brandBlue },
+  stateOptionText: { color: colors.brandBlue, fontWeight: "700" },
+  stateOptionTextSelected: { color: colors.white },
   muted: { color: colors.mutedInk },
   date: { color: colors.ink, fontSize: 18, fontWeight: "800", marginTop: spacing.standard },
   card: { gap: spacing.compact },

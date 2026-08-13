@@ -50,10 +50,20 @@ test("persists a validated response and keeps it when a refresh fails", async ()
   const repository = createMobileApiRepository("https://api.example.com", fetcher);
 
   await expect(repository.events()).resolves.toEqual(eventPage);
+  expect(repository.sourceFor("events")).toBe("remote");
   // Make the persisted item stale so the second call attempts a refresh.
   const [key, cached] = [...mockStorage.entries()][0];
   mockStorage.set(key, JSON.stringify({ ...JSON.parse(cached), updatedAt: "2020-01-01T00:00:00Z" }));
   await expect(repository.events()).resolves.toEqual(eventPage);
+  expect(repository.sourceFor("events")).toBe("cache");
+});
+
+test("ignores malformed persisted cache and fetches a validated response", async () => {
+  mockStorage.set("oth.api-cache.v1.menu", "not-json");
+  const fetcher = jest.fn().mockResolvedValue(new Response(JSON.stringify({ categories: [] }), { status: 200 }));
+  const repository = createMobileApiRepository("https://api.example.com", fetcher);
+  await expect(repository.menu()).resolves.toEqual({ categories: [] });
+  expect(repository.sourceFor("menu")).toBe("remote");
 });
 
 test("forwards a caller abort signal to event requests", async () => {

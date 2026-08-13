@@ -10,9 +10,11 @@ export type MobileApiRepository = {
   events: (query?: ScheduleQuery, signal?: AbortSignal) => Promise<EventPage>;
   about: () => Promise<AboutPage>;
   lastUpdatedAt: (resource: ApiResource) => Promise<string | null>;
+  sourceFor: (resource: ApiResource) => DataSource;
 };
 
 export type ApiResource = "bootstrap" | "menu" | "states" | "events" | "about";
+export type DataSource = "bundled" | "cache" | "remote" | "test" | "unavailable";
 type CachedResponse = { body: unknown; etag?: string; lastModified?: string; updatedAt: string };
 type FetchLike = typeof fetch;
 const cachePrefix = "oth.api-cache.v1.";
@@ -67,6 +69,13 @@ function parseAbout(value: unknown): AboutPage {
 export function createMobileApiRepository(baseUrl: string, fetcher: FetchLike = fetch): MobileApiRepository {
   if (!isSecureApiUrl(baseUrl)) throw new Error("Mobile API must use HTTPS outside local development.");
   const root = baseUrl.replace(/\/$/, "");
+  const sources: Record<ApiResource, DataSource> = {
+    bootstrap: "unavailable",
+    menu: "unavailable",
+    about: "unavailable",
+    states: "unavailable",
+    events: "unavailable"
+  };
 
   async function load<T>(
     resource: ApiResource,
@@ -76,8 +85,16 @@ export function createMobileApiRepository(baseUrl: string, fetcher: FetchLike = 
   ): Promise<T> {
     const key = cacheKey(resource, path.includes("?") ? path.slice(path.indexOf("?")) : "");
     const cachedRaw = await AsyncStorage.getItem(key);
-    const cached: CachedResponse | null = cachedRaw ? (JSON.parse(cachedRaw) as CachedResponse) : null;
-    if (cached && Date.now() - Date.parse(cached.updatedAt) < refreshWindows[resource]) return parse(cached.body);
+    let cached: CachedResponse | null = null;
+    try {
+      cached = cachedRaw ? (JSON.parse(cachedRaw) as CachedResponse) : null;
+    } catch {
+      cached = null;
+    }
+    if (cached && Date.now() - Date.parse(cached.updatedAt) < refreshWindows[resource]) {
+      sources[resource] = "cache";
+      return parse(cached.body);
+    }
 
     const headers: Record<string, string> = { Accept: "application/json" };
     if (cached?.etag) headers["If-None-Match"] = cached.etag;
@@ -86,16 +103,23 @@ export function createMobileApiRepository(baseUrl: string, fetcher: FetchLike = 
     try {
       response = await fetcher(`${root}/public/mobile/v1/${path}`, { headers, signal });
     } catch (error) {
-      if (cached) return parse(cached.body);
+      if (cached) {
+        sources[resource] = "cache";
+        return parse(cached.body);
+      }
       throw error;
     }
     if (response.status === 304 && cached) {
       const refreshed = { ...cached, updatedAt: new Date().toISOString() };
       await AsyncStorage.setItem(key, JSON.stringify(refreshed));
+      sources[resource] = "cache";
       return parse(cached.body);
     }
     if (!response.ok) {
-      if (cached) return parse(cached.body);
+      if (cached) {
+        sources[resource] = "cache";
+        return parse(cached.body);
+      }
       throw new Error(`Mobile API request failed (${response.status}).`);
     }
     const body: unknown = await response.json();
@@ -109,6 +133,7 @@ export function createMobileApiRepository(baseUrl: string, fetcher: FetchLike = 
         updatedAt: new Date().toISOString()
       } satisfies CachedResponse)
     );
+    sources[resource] = "remote";
     return parsed;
   }
 
@@ -129,7 +154,12 @@ export function createMobileApiRepository(baseUrl: string, fetcher: FetchLike = 
     about: () => load("about", "about", parseAbout),
     async lastUpdatedAt(resource) {
       const cached = await AsyncStorage.getItem(cacheKey(resource));
-      return cached ? (JSON.parse(cached) as CachedResponse).updatedAt : null;
-    }
+      try {
+        return cached ? (JSON.parse(cached) as CachedResponse).updatedAt : null;
+      } catch {
+        return null;
+      }
+    },
+    sourceFor: resource => sources[resource]
   };
 }

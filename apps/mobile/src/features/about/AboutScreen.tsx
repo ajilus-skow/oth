@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text } from "react-native";
 import { images } from "../../assets/registry";
 import { Card } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
 import { analytics } from "../../analytics/analytics";
+import { mobileEnvironment } from "../../config/environment";
+import { getMobileRepository } from "../../services/api/mockRepository";
 
 const sections = [
   [
@@ -25,16 +27,24 @@ const sections = [
     "Serving communities near and far.",
     "We proudly serve people who appreciate quality, integrity, and value.",
     images.photos.customerTruck
-  ]
+  ],
+  ["Sauces", "Our secret-recipe sauces are made in Wyoming.", images.photos.originalSauces],
+  ["Secret-recipe beer batter", "Fresh American flavor in every hand-battered order.", images.photos.fishAndChipsEating]
 ] as const;
 export function AboutScreen() {
+  const repository = useMemo(
+    () => getMobileRepository(mobileEnvironment.useMockData, mobileEnvironment.apiBaseUrl),
+    []
+  );
+  const [hero, setHero] = useState("Sea to table. Hook and line, one fish at a time.");
   useEffect(() => {
     analytics.track({ name: "about_viewed" });
-  }, []);
+    void repository.about().then(page => setHero(page.hero));
+  }, [repository]);
   return (
     <ScrollView contentContainerStyle={styles.content} style={styles.screen}>
       <Text accessibilityRole="header" style={styles.title}>
-        Sea to table. Hook and line, one fish at a time.
+        {hero}
       </Text>
       <Text style={styles.stat}>Over a decade in business.</Text>
       <Text style={styles.stat}>About 10 million meals of fish and chips served and counting.</Text>

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import menu from "../../content/menu.json";
 import { images } from "../../assets/registry";
 import { Card } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
 import { analytics } from "../../analytics/analytics";
+import { mobileEnvironment } from "../../config/environment";
+import { getMobileRepository } from "../../services/api/mockRepository";
 
 type ImageKey = "fish-and-chips-plate" | "freshest-taste";
 const menuImages: Record<ImageKey, ReturnType<typeof require>> = {
@@ -13,8 +15,24 @@ const menuImages: Record<ImageKey, ReturnType<typeof require>> = {
 };
 
 export function MenuScreen() {
+  const repository = useMemo(
+    () => getMobileRepository(mobileEnvironment.useMockData, mobileEnvironment.apiBaseUrl),
+    []
+  );
+  const [content, setContent] = useState(menu);
   const [categoryId, setCategoryId] = useState(menu.categories[0].id);
-  const category = menu.categories.find(item => item.id === categoryId) ?? menu.categories[0];
+  useEffect(() => {
+    void repository.menu().then(value => {
+      if (
+        value &&
+        typeof value === "object" &&
+        "categories" in value &&
+        Array.isArray((value as { categories?: unknown }).categories)
+      )
+        setContent(value as typeof menu);
+    });
+  }, [repository]);
+  const category = content.categories.find(item => item.id === categoryId) ?? content.categories[0];
   return (
     <ScrollView contentContainerStyle={styles.content} style={styles.screen}>
       <Text accessibilityRole="header" style={styles.title}>
@@ -22,7 +40,7 @@ export function MenuScreen() {
       </Text>
       <Text style={styles.body}>Made fresh at the truck. Availability can vary by location.</Text>
       <View accessibilityRole="tablist" style={styles.tabs}>
-        {menu.categories.map(item => (
+        {content.categories.map(item => (
           <Pressable
             accessibilityRole="tab"
             accessibilityState={{ selected: categoryId === item.id }}

@@ -23,7 +23,8 @@ export const mockRepository: MobileRepository = {
   states: () => fakeScheduleService.states(),
   events: async query => fakeScheduleService.events(query),
   about: async () => mockAbout,
-  lastUpdatedAt: async () => null
+  lastUpdatedAt: async () => null,
+  sourceFor: () => "test"
 };
 
 const unavailableSchedule = () => Promise.reject(new Error("Truck schedule is unavailable."));
@@ -34,7 +35,8 @@ export const bundledProductionRepository: MobileApiRepository = {
   about: async () => mockAbout,
   states: async () => [],
   events: unavailableSchedule,
-  lastUpdatedAt: async () => null
+  lastUpdatedAt: async () => null,
+  sourceFor: resource => (resource === "events" || resource === "states" ? "unavailable" : "bundled")
 };
 
 function withOptionalRemote(baseUrl: string): MobileApiRepository {
@@ -45,7 +47,11 @@ function withOptionalRemote(baseUrl: string): MobileApiRepository {
     about: async () => remote.about().catch(() => bundledProductionRepository.about()),
     states: () => remote.states(),
     events: (query, signal) => remote.events(query, signal),
-    lastUpdatedAt: resource => remote.lastUpdatedAt(resource)
+    lastUpdatedAt: resource => remote.lastUpdatedAt(resource),
+    sourceFor: resource => {
+      const source = remote.sourceFor(resource);
+      return source === "unavailable" && ["bootstrap", "menu", "about"].includes(resource) ? "bundled" : source;
+    }
   };
 }
 

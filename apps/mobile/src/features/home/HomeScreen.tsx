@@ -21,6 +21,10 @@ export function HomeScreen() {
     []
   );
   const [events, setEvents] = useState<TruckEvent[]>([]);
+  const [hero, setHero] = useState({
+    title: "Fresh, wild-caught fish and chips.",
+    subtitle: "Brought to your neck of the woods."
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const load = () => {
@@ -35,15 +39,23 @@ export function HomeScreen() {
       .finally(() => setLoading(false));
   };
   useEffect(load, [repository]);
+  useEffect(() => {
+    void repository.bootstrap().then(value => {
+      const content =
+        value && typeof value === "object" ? (value as { content?: Record<string, unknown> }).content : null;
+      if (content && typeof content.heroTitle === "string" && typeof content.heroSubtitle === "string")
+        setHero({ title: content.heroTitle, subtitle: content.heroSubtitle });
+    });
+  }, [repository]);
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
       <ImageBackground source={images.photos.truckSide} style={styles.hero} imageStyle={styles.heroImage}>
         <View style={styles.scrim}>
           <OfficialWordmark accessibilityLabel="On The Hook" accessibilityRole="image" height={88} width={160} />
           <Text accessibilityRole="header" style={styles.heroTitle}>
-            Fresh, wild-caught fish and chips.
+            {hero.title}
           </Text>
-          <Text style={styles.heroText}>Brought to your neck of the woods.</Text>
+          <Text style={styles.heroText}>{hero.subtitle}</Text>
           <PrimaryButton
             accessibilityLabel="Find a truck near me"
             onPress={() => navigation.navigate("Tabs", { screen: "FindUs" } as never)}
@@ -94,6 +106,10 @@ export function HomeScreen() {
         <Card style={styles.storyCard}>
           <Text style={styles.storyTitle}>Hand Battered</Text>
           <Text style={styles.body}>Prepared fresh at the truck.</Text>
+        </Card>
+        <Card style={styles.storyCard}>
+          <Text style={styles.storyTitle}>Secret-Recipe Sauces</Text>
+          <Text style={styles.body}>Made in Wyoming to pair with every order.</Text>
         </Card>
       </View>
       <Card style={styles.alertCard}>
