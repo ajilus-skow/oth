@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { images } from "../../assets/registry";
+import { images, OfficialWordmark } from "../../assets/registry";
 import type { RootStackParams } from "../../app/navigation/AppNavigator";
 import { Card, PrimaryButton } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
@@ -39,6 +39,7 @@ export function HomeScreen() {
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
       <ImageBackground source={images.photos.truckSide} style={styles.hero} imageStyle={styles.heroImage}>
         <View style={styles.scrim}>
+          <OfficialWordmark accessibilityLabel="On The Hook" accessibilityRole="image" height={88} width={160} />
           <Text accessibilityRole="header" style={styles.heroTitle}>
             Fresh, wild-caught fish and chips.
           </Text>

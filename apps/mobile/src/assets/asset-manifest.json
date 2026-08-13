@@ -2,6 +2,12 @@
   "generatedAt": "2026-08-13",
   "assets": [
     {
+      "path": "assets/brand/oth-logo.svg",
+      "source": "docs/reference/oth-logo.svg",
+      "purpose": "Approved first-party Home wordmark",
+      "bytes": 53930
+    },
+    {
       "path": "assets/brand/oth-wordmark-reference.jpeg",
       "source": "https://assets.entrepreneur.com/franchise/335226796-avatar-image-1725380095.jpeg",
       "purpose": "REFERENCE ONLY \u2014 replace with official first-party logo before release",

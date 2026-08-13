@@ -1,5 +1,7 @@
 import type { ImageSourcePropType } from "react-native";
 
+export { default as OfficialWordmark } from "./brand/oth-logo.svg";
+
 export const images = {
   brand: {
     wordmarkReference: require("./brand/oth-wordmark-reference.jpeg"),
@@ -19,6 +21,4 @@ export const images = {
   }
 } satisfies Record<string, Record<string, ImageSourcePropType>>;
 
-// Release gate: this is a public-web reference image, not approved production
-// logo art. Replace it with official first-party vector/transparent artwork.
-export const hasOfficialWordmark = false;
+export const hasOfficialWordmark = true;

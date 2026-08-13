@@ -11,8 +11,14 @@ const path = require("path");
 const workspaceRoot = path.resolve(__dirname, "../..");
 const babelRuntimeRoot = path.resolve(workspaceRoot, "node_modules/@babel/runtime");
 const reactNativeRoot = path.resolve(workspaceRoot, "node_modules/react-native");
+const defaultConfig = getDefaultConfig(__dirname);
 const config = {
+  transformer: {
+    babelTransformerPath: require.resolve("react-native-svg-transformer/react-native")
+  },
   resolver: {
+    assetExts: defaultConfig.resolver.assetExts.filter(extension => extension !== "svg"),
+    sourceExts: [...defaultConfig.resolver.sourceExts, "svg"],
     // Metro starts from this workspace package, while npm hoists shared
     // dependencies to the monorepo root. Resolve Babel helpers explicitly so
     // generated imports work both locally and on the remote macOS builder.
@@ -38,4 +44,4 @@ const config = {
   watchFolders: [workspaceRoot]
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = mergeConfig(defaultConfig, config);

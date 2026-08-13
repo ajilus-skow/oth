@@ -4,7 +4,9 @@ The files in this folder are implementation/reference assets collected from publ
 
 ## Release requirement
 
-`brand/oth-wordmark-reference.jpeg` is not the preferred production master. Replace it with the company's official SVG/transparent PNG before release and create App Store/Play Store icon/splash renditions from that official master.
+`brand/oth-logo.svg` is the approved first-party wordmark supplied in `docs/reference/oth-logo.svg` and is the Home screen logo source. Create App Store icon/splash renditions from that official master before release.
+
+`brand/oth-wordmark-reference.jpeg` remains a development reference and must not be used as a production logo.
 
 The remaining line art and photography were directly served by the On The Hook website's CDN. Confirm internal rights/brand approval before distributing them in the shipped app.
 
