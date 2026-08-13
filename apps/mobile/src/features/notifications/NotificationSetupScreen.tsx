@@ -42,7 +42,10 @@ export function NotificationSetupScreen() {
     const nextPermission = await requestNotificationPermission();
     setPermission(nextPermission);
     analytics.track({ name: "notification_permission_result", properties: { result: nextPermission } });
-    analytics.track({ name: "notification_preferences_saved", properties: { scheduledNearby: draft.scheduledNearby, dayBefore: draft.dayBefore, morningOf: draft.morningOf } });
+    analytics.track({
+      name: "notification_preferences_saved",
+      properties: { scheduledNearby: draft.scheduledNearby, dayBefore: draft.dayBefore, morningOf: draft.morningOf }
+    });
     setMessage(
       nextPermission === "granted"
         ? "Alerts are ready. We’ll use your selected area to find nearby truck visits."

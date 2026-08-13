@@ -6,7 +6,9 @@ import { analytics } from "../analytics/analytics";
 
 function App() {
   const isDarkMode = useColorScheme() === "dark";
-  useEffect(() => { analytics.track({ name: "app_open" }); }, []);
+  useEffect(() => {
+    analytics.track({ name: "app_open" });
+  }, []);
 
   return (
     <SafeAreaProvider>

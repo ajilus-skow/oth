@@ -48,7 +48,22 @@ export function MoreScreen() {
               accessibilityLabel={external ? `${row.label}, opens externally` : row.label}
               accessibilityRole="button"
               key={row.label}
-              onPress={() => (external ? void openWeb(row.url, row.label === "Jobs" ? "jobs" : row.label === "On The Hook Store" ? "store" : row.label === "Franchise Opportunities" ? "franchise" : row.label === "Privacy Policy" ? "privacy" : "terms") : navigation.navigate(row.route))}
+              onPress={() =>
+                external
+                  ? void openWeb(
+                      row.url,
+                      row.label === "Jobs"
+                        ? "jobs"
+                        : row.label === "On The Hook Store"
+                          ? "store"
+                          : row.label === "Franchise Opportunities"
+                            ? "franchise"
+                            : row.label === "Privacy Policy"
+                              ? "privacy"
+                              : "terms"
+                    )
+                  : navigation.navigate(row.route)
+              }
               style={styles.row}
             >
               <Text style={styles.rowText}>{row.label}</Text>

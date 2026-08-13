@@ -77,7 +77,10 @@ export function FindUsScreen() {
           <Text style={styles.body}>Find a truck by city, state, or ZIP—or use your location just this once.</Text>
           <TextInput
             accessibilityLabel="Search city state ZIP or host"
-              onChangeText={value => { setQuery(value); analytics.track({ name: "find_search_submitted", properties: { queryType: searchQueryType(value) } }); }}
+            onChangeText={value => {
+              setQuery(value);
+              analytics.track({ name: "find_search_submitted", properties: { queryType: searchQueryType(value) } });
+            }}
             placeholder="City, state, ZIP, or host"
             style={styles.input}
             value={query}
@@ -87,14 +90,20 @@ export function FindUsScreen() {
               accessibilityLabel="Filter by state"
               autoCapitalize="characters"
               maxLength={2}
-              onChangeText={value => { setState(value.toUpperCase()); analytics.track({ name: "find_filter_changed", properties: { filter: "state" } }); }}
+              onChangeText={value => {
+                setState(value.toUpperCase());
+                analytics.track({ name: "find_filter_changed", properties: { filter: "state" } });
+              }}
               placeholder="State"
               style={styles.smallInput}
               value={state}
             />
             <TextInput
               accessibilityLabel="Filter by date"
-              onChangeText={value => { setDate(value); analytics.track({ name: "find_filter_changed", properties: { filter: "date" } }); }}
+              onChangeText={value => {
+                setDate(value);
+                analytics.track({ name: "find_filter_changed", properties: { filter: "date" } });
+              }}
               placeholder="YYYY-MM-DD"
               style={styles.dateInput}
               value={date}
@@ -125,7 +134,9 @@ export function FindUsScreen() {
           {section.title}
         </Text>
       )}
-      renderItem={({ item }) => <EventCard event={item} onDetails={() => navigation.navigate("EventDetail", { eventId: item.eventId })} />}
+      renderItem={({ item }) => (
+        <EventCard event={item} onDetails={() => navigation.navigate("EventDetail", { eventId: item.eventId })} />
+      )}
       ListEmptyComponent={
         !refreshing ? (
           <StatusMessage title="No truck visits found" body="Try another city, state, ZIP, or date." />

@@ -9,7 +9,9 @@ test("removes sensitive properties before analytics delegation", () => {
   expect(received).toEqual([{ name: "directions_tapped", properties: { eventId: "safe" } }]);
 });
 
-test.each([["50310", "zip"], ["IA", "state"], ["Des Moines", "city"], ["x9!", "unknown"]] as const)(
-  "classifies search input without retaining it",
-  (query, type) => expect(searchQueryType(query)).toBe(type)
-);
+test.each([
+  ["50310", "zip"],
+  ["IA", "state"],
+  ["Des Moines", "city"],
+  ["x9!", "unknown"]
+] as const)("classifies search input without retaining it", (query, type) => expect(searchQueryType(query)).toBe(type));

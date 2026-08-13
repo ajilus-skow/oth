@@ -33,17 +33,35 @@ export function ContactScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.content} style={styles.screen}>
-      <Text accessibilityRole="header" style={styles.title}>Contact Us</Text>
-      <Text style={styles.description}>Questions, feedback, or a great truck-visit story? We’d love to hear from you.</Text>
+      <Text accessibilityRole="header" style={styles.title}>
+        Contact Us
+      </Text>
+      <Text style={styles.description}>
+        Questions, feedback, or a great truck-visit story? We’d love to hear from you.
+      </Text>
       <Card style={styles.card}>
         <Text style={styles.label}>EMAIL</Text>
-        <Text selectable style={styles.value}>{contactDetails.email}</Text>
-        <PrimaryButton accessibilityLabel="Email On The Hook" onPress={() => void openContact(contactDetails.email, "email")}>Email Us</PrimaryButton>
+        <Text selectable style={styles.value}>
+          {contactDetails.email}
+        </Text>
+        <PrimaryButton
+          accessibilityLabel="Email On The Hook"
+          onPress={() => void openContact(contactDetails.email, "email")}
+        >
+          Email Us
+        </PrimaryButton>
       </Card>
       <Card style={styles.card}>
         <Text style={styles.label}>PHONE</Text>
-        <Text selectable style={styles.value}>{displayPhone(contactDetails.phone)}</Text>
-        <PrimaryButton accessibilityLabel="Call On The Hook" onPress={() => void openContact(contactDetails.phone, "phone")}>Call Us</PrimaryButton>
+        <Text selectable style={styles.value}>
+          {displayPhone(contactDetails.phone)}
+        </Text>
+        <PrimaryButton
+          accessibilityLabel="Call On The Hook"
+          onPress={() => void openContact(contactDetails.phone, "phone")}
+        >
+          Call Us
+        </PrimaryButton>
       </Card>
       <StatusMessage title="We’ll connect you safely" body="Email and calling only open after you choose an action." />
     </ScrollView>
