@@ -273,6 +273,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ajilus.oth";
 				PRODUCT_NAME = oth;
+				RCT_METRO_PORT = 8097;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

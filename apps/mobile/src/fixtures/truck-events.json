@@ -1,0 +1,57 @@
+{
+  "updatedAt": "2026-08-13T16:00:00-05:00",
+  "nextCursor": null,
+  "events": [
+    {
+      "eventId": "fixture-johnstown-20260813",
+      "truckId": null,
+      "city": "Johnstown",
+      "state": "CO",
+      "hostName": "Dine In",
+      "address1": "4884 Larimer Parkway",
+      "address2": null,
+      "postalCode": "80534",
+      "latitude": null,
+      "longitude": null,
+      "timezone": "America/Denver",
+      "startsAt": "2026-08-13T11:00:00-06:00",
+      "endsAt": "2026-08-13T20:30:00-06:00",
+      "orderUrl": "https://onthehookfishandchips.com/order-now",
+      "status": "scheduled"
+    },
+    {
+      "eventId": "fixture-wdm-20260815",
+      "truckId": null,
+      "city": "West Des Moines",
+      "state": "IA",
+      "hostName": "Lowe's",
+      "address1": "1700 50th St",
+      "address2": null,
+      "postalCode": "50266",
+      "latitude": null,
+      "longitude": null,
+      "timezone": "America/Chicago",
+      "startsAt": "2026-08-15T11:00:00-05:00",
+      "endsAt": "2026-08-15T19:00:00-05:00",
+      "orderUrl": "https://onthehookfishandchips.com/order-now",
+      "status": "scheduled"
+    },
+    {
+      "eventId": "fixture-laramie-20260815",
+      "truckId": null,
+      "city": "Laramie",
+      "state": "WY",
+      "hostName": "Mingles",
+      "address1": "3206 Grand Ave",
+      "address2": null,
+      "postalCode": "82070",
+      "latitude": null,
+      "longitude": null,
+      "timezone": "America/Denver",
+      "startsAt": "2026-08-15T11:00:00-06:00",
+      "endsAt": "2026-08-15T19:00:00-06:00",
+      "orderUrl": "https://onthehookfishandchips.com/order-now",
+      "status": "scheduled"
+    }
+  ]
+}

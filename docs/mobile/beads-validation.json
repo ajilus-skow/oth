@@ -1,0 +1,13 @@
+{
+  "issueCount": 45,
+  "epicCount": 1,
+  "taskCount": 44,
+  "allJsonObjectsValid": true,
+  "allDependencyTargetsResolve": true,
+  "blockingDependencyGraphAcyclic": true,
+  "dependencyRecordsUseOnly": [
+    "issue_id",
+    "depends_on_id",
+    "type"
+  ]
+}

@@ -11,6 +11,8 @@ readonly REMOTE_TARGET="${REMOTE_USER}@${REMOTE_HOST}"
 readonly ARTIFACT_DIR="${PROJECT_ROOT}/artifacts/ios-remote"
 readonly APP_NAME="oth"
 readonly BUNDLE_ID="com.ajilus.oth"
+readonly METRO_PORT="${IOS_METRO_PORT:-8097}"
+readonly SIMULATOR_NAME="${IOS_SIMULATOR_NAME:-OTH iPhone 17 Pro}"
 
 SSH_OPTIONS=(-i "${SSH_KEY}" -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new)
 
@@ -68,7 +70,8 @@ sync_project() {
     --filter='P apps/mobile/ios/.xcode.env' \
     --filter='P apps/mobile/ios/.xcode.env.local' \
     --exclude '**/node_modules/' --exclude '**/Pods/' --exclude '**/build/' \
-    --exclude '**/.git/' --exclude '/artifacts/' \
+    --exclude '**/.git/' --exclude '/artifacts/' --exclude '/private/' \
+    --exclude '/.env' --exclude '/.env.*' \
     -e "${rsync_shell}" "${PROJECT_ROOT}/" "${REMOTE_TARGET}:${REMOTE_DIR}/"
 }
 
@@ -88,17 +91,20 @@ REMOTE_SCRIPT
 }
 
 remote_build() {
-  ssh "${SSH_OPTIONS[@]}" "${REMOTE_TARGET}" /bin/bash -s -- "${REMOTE_DIR}" "${APP_NAME}" <<'REMOTE_SCRIPT'
+  ssh "${SSH_OPTIONS[@]}" "${REMOTE_TARGET}" /bin/bash -s -- "${REMOTE_DIR}" "${APP_NAME}" "${METRO_PORT}" <<'REMOTE_SCRIPT'
 set -euo pipefail
 remote_dir="$1"
 app_name="$2"
+metro_port="$3"
 [[ "${remote_dir}" = /* ]] || remote_dir="${HOME}/${remote_dir}"
 export PATH="/opt/homebrew/opt/node@22/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
+export RCT_METRO_PORT="${metro_port}"
 cd "${remote_dir}/apps/mobile/ios"
 mkdir -p "${HOME}/Library/Logs"
 xcodebuild -workspace "${app_name}.xcworkspace" -scheme "${app_name}" -sdk iphonesimulator \
   -configuration Debug -derivedDataPath build build CODE_SIGNING_ALLOWED=NO \
+  RCT_METRO_PORT="${metro_port}" \
   | tee "${HOME}/Library/Logs/on-the-hook-xcodebuild.log"
 REMOTE_SCRIPT
 }
@@ -113,14 +119,52 @@ download_artifact() {
 }
 
 remote_run() {
-  ssh "${SSH_OPTIONS[@]}" "${REMOTE_TARGET}" /bin/bash -s -- "${REMOTE_DIR}" "${APP_NAME}" "${BUNDLE_ID}" <<'REMOTE_SCRIPT'
+  ssh "${SSH_OPTIONS[@]}" "${REMOTE_TARGET}" /bin/bash -s -- "${REMOTE_DIR}" "${APP_NAME}" "${BUNDLE_ID}" "${METRO_PORT}" "${SIMULATOR_NAME}" <<'REMOTE_SCRIPT'
 set -euo pipefail
 remote_dir="$1"
 app_name="$2"
 bundle_id="$3"
+metro_port="$4"
+simulator_name="$5"
 [[ "${remote_dir}" = /* ]] || remote_dir="${HOME}/${remote_dir}"
 export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
-device="$(xcrun simctl list devices available | awk -F '[()]' '/iPhone/ {print $2; exit}')"
+export PATH="/opt/homebrew/opt/node@22/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+metro_pid_file="${remote_dir}/metro-${metro_port}.pid"
+[[ "${metro_port}" != "8081" ]] || { echo 'Port 8081 is reserved for Audestra Metro.' >&2; exit 1; }
+
+# A native build may introduce a new dependency. Restart only OTH's dedicated
+# Metro listener so its resolver and transform cache match the newly synced
+# workspace; never touch Audestra's default 8081 listener.
+for listener_pid in $(/usr/sbin/lsof -t -iTCP:"${metro_port}" -sTCP:LISTEN 2>/dev/null || true); do
+  listener_command="$(ps -p "${listener_pid}" -o command= 2>/dev/null || true)"
+  if [[ "${listener_command}" == *"${remote_dir}"* ]]; then
+    echo "Restarting OTH Metro on port ${metro_port} (PID ${listener_pid})."
+    kill "${listener_pid}"
+  else
+    echo "Metro port ${metro_port} is already owned by another process." >&2
+    exit 1
+  fi
+done
+for _ in {1..20}; do
+  /usr/sbin/lsof -t -iTCP:"${metro_port}" -sTCP:LISTEN >/dev/null 2>&1 || break
+  sleep 0.25
+done
+/usr/sbin/lsof -t -iTCP:"${metro_port}" -sTCP:LISTEN >/dev/null 2>&1 && {
+  echo "OTH Metro did not stop cleanly on port ${metro_port}." >&2
+  exit 1
+}
+rm -f "${metro_pid_file}"
+(cd "${remote_dir}/apps/mobile" && nohup npx react-native start --host 0.0.0.0 --port "${metro_port}" --reset-cache > "${remote_dir}/metro-${metro_port}.log" 2>&1 < /dev/null & echo $! > "${metro_pid_file}")
+for _ in {1..20}; do
+  curl --fail --silent "http://127.0.0.1:${metro_port}/status" >/dev/null 2>&1 && break
+  sleep 0.5
+done
+curl --fail --silent "http://127.0.0.1:${metro_port}/status" >/dev/null 2>&1 || {
+  echo "OTH Metro failed to become ready on port ${metro_port}." >&2
+  tail -60 "${remote_dir}/metro-${metro_port}.log" >&2 || true
+  exit 1
+}
+device="$(xcrun simctl list devices available | awk -F '[()]' -v name="${simulator_name}" '$0 ~ name {print $2; exit}')"
 [[ -n "${device}" ]] || { echo 'No available iPhone simulator found.' >&2; exit 1; }
 xcrun simctl boot "${device}" 2>/dev/null || true
 open -a Simulator

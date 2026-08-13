@@ -1,0 +1,1539 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "name": "On The Hook Fish & Chips - Find Us",
+    "url": "https://onthehookfishandchips.com/find-us",
+    "retrievedAt": "2026-08-13T17:31:00-05:00",
+    "notes": [
+      "Schedule data was extracted from the public Find Us page only.",
+      "Order-provider pages were not followed or scraped.",
+      "Times are normalized to HH:mm local wall-clock time; timezone identifiers are not published by the page.",
+      "actionsAvailable.orderNow reflects whether the rendered schedule entry displayed an Order Now action."
+    ]
+  },
+  "scheduleWindow": {
+    "startDate": "2026-08-13",
+    "endDate": "2026-08-15"
+  },
+  "summary": {
+    "eventCount": 71,
+    "stateCount": 17,
+    "eventsByDate": {
+      "2026-08-13": 24,
+      "2026-08-14": 24,
+      "2026-08-15": 23
+    },
+    "eventsByState": {
+      "CO": 12,
+      "IA": 7,
+      "ID": 4,
+      "KS": 2,
+      "KY": 2,
+      "MN": 2,
+      "MO": 2,
+      "MT": 4,
+      "NE": 2,
+      "OR": 2,
+      "PA": 8,
+      "TX": 9,
+      "UT": 6,
+      "WA": 5,
+      "WI": 1,
+      "WV": 1,
+      "WY": 2
+    }
+  },
+  "events": [
+    {
+      "id": "oth-202608-001",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Johnstown",
+        "state": "CO",
+        "venue": "Dine In",
+        "formattedAddress": "4884 Larimer Parkway, Johnstown, CO 80534"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "20:30",
+        "display": "11:00 AM - 8:30 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-002",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Monument",
+        "state": "CO",
+        "venue": "3 Hundred Days Distilling",
+        "formattedAddress": "279 Beacon Lite Rd G, Monument, CO 80132"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-003",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Cortez",
+        "state": "CO",
+        "venue": "Plaza Storage",
+        "formattedAddress": "2220 E Main St, Cortez, CO 81321"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-004",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Longmont",
+        "state": "CO",
+        "venue": "Save A Lot",
+        "formattedAddress": "1750 Main St, Longmont, CO 80501"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-005",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Johnstown",
+        "state": "CO",
+        "venue": "Dine In",
+        "formattedAddress": "4884 Larimer Parkway, Johnstown, CO 80534"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "20:30",
+        "display": "11:00 AM - 8:30 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-006",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Greeley",
+        "state": "CO",
+        "venue": "Crabtree Brewing",
+        "formattedAddress": "2961 29th St, Greeley, CO 80631"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-007",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Castle Rock",
+        "state": "CO",
+        "venue": "Lowe's",
+        "formattedAddress": "1360 New Beale St, Castle Rock, CO 80108"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-008",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Pagosa Springs",
+        "state": "CO",
+        "venue": "Tractor Supply",
+        "formattedAddress": "225 US-84, Pagosa Springs, CO 81147"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-009",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Johnstown",
+        "state": "CO",
+        "venue": "Dine In",
+        "formattedAddress": "4884 Larimer Parkway, Johnstown, CO 80534"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "20:30",
+        "display": "11:00 AM - 8:30 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-010",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Fort Collins",
+        "state": "CO",
+        "venue": "Gilded Goat",
+        "formattedAddress": "3500 S College Ave #194, Fort Collins, CO 80525"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-011",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Littleton",
+        "state": "CO",
+        "venue": "Walmart",
+        "formattedAddress": "13420 W Coal Mine Ave, Littleton, CO 80127"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-012",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Pueblo",
+        "state": "CO",
+        "venue": "Walters",
+        "formattedAddress": "126 Oneida St, Pueblo, CO 81003"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-013",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Belle Plaine",
+        "state": "IA",
+        "venue": "DG Market",
+        "formattedAddress": "405 13th St, Belle Plaine, IA 52208"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-014",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Harlan",
+        "state": "IA",
+        "venue": "Dollar General",
+        "formattedAddress": "1102 Chatburn Ave, Harlan, IA 51537"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-015",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Vinton",
+        "state": "IA",
+        "venue": "Dollar Fresh Market",
+        "formattedAddress": "911 S K Ave, Vinton, IA 52349"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-016",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Dubuque",
+        "state": "IA",
+        "venue": "Lowe's",
+        "formattedAddress": "4100 Dodge St, Dubuque, IA 52003"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-017",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Creston",
+        "state": "IA",
+        "venue": "Bomgaars",
+        "formattedAddress": "408 S Sumner Ave, Creston, IA 50801"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-018",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Marion",
+        "state": "IA",
+        "venue": "Furniture Row",
+        "formattedAddress": "725 Oakbrook Dr, Marion, IA 52302"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-019",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "West Des Moines",
+        "state": "IA",
+        "venue": "Lowe's",
+        "formattedAddress": "1700 50th St, West Des Moines, IA 50266"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-020",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Blackfoot",
+        "state": "ID",
+        "venue": "C-A-L Ranch",
+        "formattedAddress": "250 N Meridian St, Blackfoot, ID 83221"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-021",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Idaho Falls",
+        "state": "ID",
+        "venue": "Ashley Furniture",
+        "formattedAddress": "620 1st St, Idaho Falls, ID 83401"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-022",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Post Falls",
+        "state": "ID",
+        "venue": "Grocery Outlet",
+        "formattedAddress": "2588 ID-41, Post Falls, ID 83854"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": false
+      }
+    },
+    {
+      "id": "oth-202608-023",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Weiser",
+        "state": "ID",
+        "venue": "K Hardware",
+        "formattedAddress": "1101 State St, Weiser, ID 83672"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": false
+      }
+    },
+    {
+      "id": "oth-202608-024",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Great Bend",
+        "state": "KS",
+        "venue": "Dollar General",
+        "formattedAddress": "5318 10th St, Great Bend, KS 67530"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-025",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Lawrence",
+        "state": "KS",
+        "venue": "Harbor Freight",
+        "formattedAddress": "1801 W 23rd St #300, Lawrence, KS 66046"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-026",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Elizabethtown",
+        "state": "KY",
+        "venue": "Lowe's",
+        "formattedAddress": "100 Lowes Dr, Elizabethtown, KY 42701"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-027",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Owensboro",
+        "state": "KY",
+        "venue": "Tractor Supply",
+        "formattedAddress": "3130 Villa Point, Owensboro, KY 42303"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-028",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Buffalo",
+        "state": "MN",
+        "venue": "Advance Auto Parts",
+        "formattedAddress": "631 Ryan's Way, Buffalo, MN 55313"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-029",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "New Ulm",
+        "state": "MN",
+        "venue": "NAPA",
+        "formattedAddress": "1720 N Broadway St, New Ulm, MN 56073"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-030",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Liberty",
+        "state": "MO",
+        "venue": "Lowe's",
+        "formattedAddress": "1920 N Stewart Rd, Liberty, MO 64068"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-031",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "St Peters",
+        "state": "MO",
+        "venue": "Fresh Thyme Market",
+        "formattedAddress": "3600 S St Peters Pkwy, St Peters, MO 63304"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-032",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Manhattan",
+        "state": "MT",
+        "venue": "Ace Hardware",
+        "formattedAddress": "130 E Wooden Shoe Ln, Manhattan, MT 59741"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-033",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Billings",
+        "state": "MT",
+        "venue": "Michaels",
+        "formattedAddress": "Marketplace Center, Billings, MT 59102"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-034",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "White Sulphur Springs",
+        "state": "MT",
+        "venue": "Ace Hardware",
+        "formattedAddress": "311 Alabama St West #948, White Sulphur Springs, MT 59645"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-035",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Helena",
+        "state": "MT",
+        "venue": "MaCon Supply",
+        "formattedAddress": "2650 N Montana Ave, Helena, MT 59601"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-036",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Norfolk",
+        "state": "NE",
+        "venue": "Tractor Supply",
+        "formattedAddress": "2201 Krenzien Dr, Norfolk, NE 68701"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-037",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Omaha",
+        "state": "NE",
+        "venue": "Lowe's",
+        "formattedAddress": "18375 Wright St, Omaha, NE 68130"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-038",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "La Grande",
+        "state": "OR",
+        "venue": "Bi-Mart",
+        "formattedAddress": "2510 Adams Ave, La Grande, OR 97850"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": false
+      }
+    },
+    {
+      "id": "oth-202608-039",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Baker City",
+        "state": "OR",
+        "venue": "Grocery Outlet",
+        "formattedAddress": "297 Campbell St, Baker City, OR 97814"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": false
+      }
+    },
+    {
+      "id": "oth-202608-040",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Hanover",
+        "state": "PA",
+        "venue": "Lowe's",
+        "formattedAddress": "310 Eisenhower Dr, Hanover, PA 17331"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-041",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Easton",
+        "state": "PA",
+        "venue": "Lowe's",
+        "formattedAddress": "4443 Birkland Pl, Easton, PA 18045"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-042",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Trappe",
+        "state": "PA",
+        "venue": "Dairy Queen",
+        "formattedAddress": "345 W Main St, Trappe, PA 19426"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-043",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Blandon",
+        "state": "PA",
+        "venue": "Dollar General",
+        "formattedAddress": "825 Park Rd, Blandon, PA 19510"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-044",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Waynesburg",
+        "state": "PA",
+        "venue": "Tractor Supply",
+        "formattedAddress": "55 Sugar Run Rd, Waynesburg, PA 15370"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-045",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Birdsboro",
+        "state": "PA",
+        "venue": "Birdsboro Beverage Co",
+        "formattedAddress": "236 W 1st St, Birdsboro, PA 19508"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-046",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Butler",
+        "state": "PA",
+        "venue": "Lowe's",
+        "formattedAddress": "500 Moraine Pointe Plaza, Butler, PA 16001"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-047",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "New Cumberland",
+        "state": "PA",
+        "venue": "Tractor Supply",
+        "formattedAddress": "550 Old York Rd, New Cumberland, PA 17070"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-048",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Bonham",
+        "state": "TX",
+        "venue": "Aaron's",
+        "formattedAddress": "2000 N Texas State Hwy 121, Bonham, TX 75418"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-049",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Hutto",
+        "state": "TX",
+        "venue": "Lowe's",
+        "formattedAddress": "201 Ed Schmidt Blvd, Hutto, TX 78634"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-050",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Port Arthur",
+        "state": "TX",
+        "venue": "Lowe's",
+        "formattedAddress": "8383 Memorial Blvd, Port Arthur, TX 77640"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-051",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Tomball",
+        "state": "TX",
+        "venue": "Lowe's",
+        "formattedAddress": "19580 Tomball Parkway, Tomball, TX 77070"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-052",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Kaufman",
+        "state": "TX",
+        "venue": "Lowe's",
+        "formattedAddress": "600 Kings Fort Parkway, Kaufman, TX 75142"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-053",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Corsicana",
+        "state": "TX",
+        "venue": "Tractor Supply",
+        "formattedAddress": "3751 State Hwy 31 W, Corsicana, TX 75110"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-054",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Fort Worth",
+        "state": "TX",
+        "venue": "Lowe's",
+        "formattedAddress": "3500 NW Centre Dr, Fort Worth, TX 76135"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-055",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Little Elm",
+        "state": "TX",
+        "venue": "Lowe's",
+        "formattedAddress": "2773 E Eldorado Pkwy, Little Elm, TX 75068"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-056",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Gatesville",
+        "state": "TX",
+        "venue": "Shoe Dept.",
+        "formattedAddress": "323 TX-36, Gatesville, TX 76528"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-057",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "South Jordan",
+        "state": "UT",
+        "venue": "Ace Hardware",
+        "formattedAddress": "5422 W Daybreak Pkwy, South Jordan, UT 84009"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-058",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Moab",
+        "state": "UT",
+        "venue": "Standard Plumbing Supply",
+        "formattedAddress": "1145 US-191, Moab, UT 84532"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-059",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Heber City",
+        "state": "UT",
+        "venue": "AutoZone",
+        "formattedAddress": "805 S Main St, Heber City, UT 84032"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-060",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Castle Dale",
+        "state": "UT",
+        "venue": "NAPA Auto Parts",
+        "formattedAddress": "120 W Main St, Castle Dale, UT 84513"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-061",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Murray",
+        "state": "UT",
+        "venue": "Lowe's",
+        "formattedAddress": "469 W 4500 S, Murray, UT 84123"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-062",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Sandy",
+        "state": "UT",
+        "venue": "Lowe's",
+        "formattedAddress": "9291 Quarry Bend Dr, Sandy, UT 84094"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-063",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Pullman",
+        "state": "WA",
+        "venue": "Anytime Fitness",
+        "formattedAddress": "690 SE Bishop Blvd, Pullman, WA 99163"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": false
+      }
+    },
+    {
+      "id": "oth-202608-064",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Ephrata",
+        "state": "WA",
+        "venue": "Moore Furniture",
+        "formattedAddress": "328 Basin St SW, Ephrata, WA 98823"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": false
+      }
+    },
+    {
+      "id": "oth-202608-065",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Moses Lake",
+        "state": "WA",
+        "venue": "Lowe's",
+        "formattedAddress": "1400 E Yonezawa Blvd, Moses Lake, WA 98837"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": false
+      }
+    },
+    {
+      "id": "oth-202608-066",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Tekoa",
+        "state": "WA",
+        "venue": "Gymkhana Park 413 N Crosby St",
+        "formattedAddress": "413 N Crosby St, Tekoa, WA 99033"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": false
+      }
+    },
+    {
+      "id": "oth-202608-067",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Colville",
+        "state": "WA",
+        "venue": "North 40",
+        "formattedAddress": "1150 S Main St, Colville, WA 99114"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": false
+      }
+    },
+    {
+      "id": "oth-202608-068",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Monroe",
+        "state": "WI",
+        "venue": "Harris Ace Hardware",
+        "formattedAddress": "105 7 1/2 St, Monroe, WI 53566"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-069",
+      "date": "2026-08-13",
+      "dayOfWeek": "Thursday",
+      "location": {
+        "city": "Vienna",
+        "state": "WV",
+        "venue": "Lowe's",
+        "formattedAddress": "1300 Grand Central Ave, Vienna, WV 26105"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-070",
+      "date": "2026-08-14",
+      "dayOfWeek": "Friday",
+      "location": {
+        "city": "Sheridan",
+        "state": "WY",
+        "venue": "AutoZone",
+        "formattedAddress": "1038 Coffeen Ave, Sheridan, WY 82801"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    },
+    {
+      "id": "oth-202608-071",
+      "date": "2026-08-15",
+      "dayOfWeek": "Saturday",
+      "location": {
+        "city": "Laramie",
+        "state": "WY",
+        "venue": "Mingles",
+        "formattedAddress": "3206 Grand Ave, Laramie, WY 82070"
+      },
+      "hours": {
+        "opensLocal": "11:00",
+        "closesLocal": "19:00",
+        "display": "11:00 AM - 7:00 PM"
+      },
+      "actionsAvailable": {
+        "directions": true,
+        "addToCalendar": true,
+        "orderNow": true
+      }
+    }
+  ]
+}

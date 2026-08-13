@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-08-13",
+  "assets": [
+    {
+      "path": "assets/brand/oth-wordmark-reference.jpeg",
+      "source": "https://assets.entrepreneur.com/franchise/335226796-avatar-image-1725380095.jpeg",
+      "purpose": "REFERENCE ONLY \u2014 replace with official first-party logo before release",
+      "sha256": "46c90b9543f339d8ab9c04e832e2bf36282e1994407099e2e3a54c9652fee141",
+      "bytes": 56843
+    },
+    {
+      "path": "assets/brand/fish-line-art.png",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/proudly/fish.png",
+      "purpose": "Decorative fish line art",
+      "sha256": "9d1f21005e998aa53cd0104e6b9267eb44f4af1af4bb746e2409d1b469b4b081",
+      "bytes": 55099
+    },
+    {
+      "path": "assets/brand/fries-line-art.png",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/proudly/fries.png",
+      "purpose": "Decorative fries line art",
+      "sha256": "44045a0ea0ceadf41895501798978db8cbe5370a9690a14eda00882c3c44cf13",
+      "bytes": 144842
+    },
+    {
+      "path": "assets/photos/ship.jpg",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/tradition_twist/ship.jpg",
+      "purpose": "About/source story",
+      "sha256": "c26fb3d59c8370b3255e8e1e9673a9b8b256523085e10b9cdc6c2483b5d8b433",
+      "bytes": 66159
+    },
+    {
+      "path": "assets/photos/fish-and-chips-eating.jpg",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/tradition_twist/twist.jpg",
+      "purpose": "Home/About hand-battered story",
+      "sha256": "fc07ac7dffdfdddef48bd75209efae135298141b29cf42725385b68e42afda46",
+      "bytes": 52051
+    },
+    {
+      "path": "assets/photos/freshest-taste.jpg",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/what/freshest-taste.jpg",
+      "purpose": "Freshness/menu",
+      "sha256": "395555cd3eb1ebdf67d5a135397eee40e6eb46190b912105c22aa83025cc17e4",
+      "bytes": 35876
+    },
+    {
+      "path": "assets/photos/original-sauces.jpg",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/what/original-sauces.jpg",
+      "purpose": "Sauces story",
+      "sha256": "a5ecbf8a9bde7cbf2b4924e5ecdba7e9ea412a62280da591b5e6d1baa27e4e0b",
+      "bytes": 33763
+    },
+    {
+      "path": "assets/photos/fish-and-chips-plate.jpg",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/food-info/food.jpg",
+      "purpose": "Menu/home food photography",
+      "sha256": "5870e9e3d82971755a52ab94732f64858fa7ada70e89dd0f9e0bf684fab79720",
+      "bytes": 76119
+    },
+    {
+      "path": "assets/photos/truck-side.jpg",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/home/img_7229.jpg",
+      "purpose": "Primary truck hero/reference",
+      "sha256": "52ae5504e78e11677be1f1b058bfaa80475e02650c8a53bcab45ff6a11f4bdaf",
+      "bytes": 864757
+    },
+    {
+      "path": "assets/photos/customer-truck.jpg",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/home/img_7321.jpg",
+      "purpose": "Customer/truck lifestyle",
+      "sha256": "19dca45d5141bacca6ff963a4b0abfa98c49e8b57a24209fa8e50d2d787fac41",
+      "bytes": 507181
+    },
+    {
+      "path": "assets/photos/service-window.jpg",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/home/img_7233.jpg",
+      "purpose": "Service experience",
+      "sha256": "dd046312db3b4335cd33f651d7ead30ebc40e450ed35c417d369b5d3a25a19c4",
+      "bytes": 463590
+    },
+    {
+      "path": "assets/photos/meal-truck.jpg",
+      "source": "https://d372pj50rcogi4.cloudfront.net/img/home/img_7309.jpg",
+      "purpose": "Primary meal/truck hero",
+      "sha256": "1e9b89b10a06c9112f3759b3045e74f89d32751aaafad9228a288ce42e857569",
+      "bytes": 397399
+    }
+  ]
+}

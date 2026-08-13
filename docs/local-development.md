@@ -12,8 +12,9 @@ cd ../../..
 make run-ios
 ```
 
-Linux hosts can edit TypeScript and run workspace validation, but must use a
-Mac development machine for CocoaPods, Simulator, device, and Xcode work.
+Linux hosts can edit TypeScript and run workspace validation. iOS work requires
+a Mac development machine for CocoaPods, Simulator, device, and Xcode work.
+Android development is currently paused.
 
 ## Remote iOS development machine
 

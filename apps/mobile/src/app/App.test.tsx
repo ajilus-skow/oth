@@ -1,5 +1,5 @@
 import App from "./App";
 
-test("exposes the application root", () => {
-  expect(App).toBeDefined();
+test("exposes the OnTheHookBeta application root", () => {
+  expect(typeof App).toBe("function");
 });

@@ -1,0 +1,111 @@
+{
+  "updatedAt": "2026-08-13T00:00:00Z",
+  "categories": [
+    {
+      "id": "entrees",
+      "name": "Entrees",
+      "items": [
+        {
+          "id": "fish-and-chips",
+          "name": "Fish & Chips",
+          "description": "3 pieces of crispy and sustainable hand-battered Cod with a side of fries. Over 40 grams of protein.",
+          "imageKey": "fish-and-chips-plate",
+          "price": null,
+          "currency": null
+        },
+        {
+          "id": "just-fish",
+          "name": "Wild Alaskan Cod (Just Fish)",
+          "description": "3 pieces of crispy and sustainable hand-battered Cod. Over 40 grams of protein. Fries not included.",
+          "imageKey": "freshest-taste",
+          "price": null,
+          "currency": null
+        },
+        {
+          "id": "large-chips",
+          "name": "Large Chips",
+          "description": "Salty, seasoned, and lightly battered.",
+          "imageKey": null,
+          "price": null,
+          "currency": null
+        },
+        {
+          "id": "kids-meal",
+          "name": "Kids Meal",
+          "description": "5 mini cod cakes, fries and sauce.",
+          "imageKey": null,
+          "price": null,
+          "currency": null
+        }
+      ]
+    },
+    {
+      "id": "sides",
+      "name": "Sides",
+      "items": [
+        {
+          "id": "fresh-slaw",
+          "name": "Fresh Slaw",
+          "description": "Crisp greens and a zesty sesame dressing.",
+          "imageKey": null,
+          "price": null,
+          "currency": null
+        },
+        {
+          "id": "cod-cakes",
+          "name": "Cod Cakes",
+          "description": "Bite-sized delights made with Alaskan Cod, lightly seasoned, and coated in crispy panko breading. 5 cod cakes.",
+          "imageKey": null,
+          "price": null,
+          "currency": null
+        },
+        {
+          "id": "bacon-clam-chowder",
+          "name": "Bacon Clam Chowder",
+          "description": "Tender clams, harvested sustainably, and succulent bacon. A rich and creamy duo.",
+          "imageKey": null,
+          "price": null,
+          "currency": null
+        }
+      ]
+    },
+    {
+      "id": "drinks",
+      "name": "Drinks",
+      "items": [
+        {
+          "id": "alaskan-strawberry-soda",
+          "name": "Alaskan Strawberry Soda",
+          "description": "Made the old-fashioned way: real strawberries and cane sugar.",
+          "imageKey": null,
+          "price": null,
+          "currency": null
+        },
+        {
+          "id": "fountain-drink",
+          "name": "Fountain Drink",
+          "description": "Coke, Diet Coke, Coke Zero, Sprite, Dr. Pepper, Minute Maid.",
+          "imageKey": null,
+          "price": null,
+          "currency": null
+        },
+        {
+          "id": "harborside-root-beer",
+          "name": "Harborside Root Beer",
+          "description": "A slow-sipping root beer with hints of vanilla and honey.",
+          "imageKey": null,
+          "price": null,
+          "currency": null
+        },
+        {
+          "id": "water",
+          "name": "Water Bottle",
+          "description": "Bottled water.",
+          "imageKey": null,
+          "price": null,
+          "currency": null
+        }
+      ]
+    }
+  ]
+}
