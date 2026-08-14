@@ -47,15 +47,19 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.offWhite, paddingHorizontal: spacing.screen },
   card: {
     backgroundColor: colors.white,
-    borderColor: colors.border,
+    borderColor: "#C7DCE6",
     borderRadius: radii.card,
     borderWidth: 1,
-    padding: spacing.standard
+    padding: spacing.standard,
+    shadowColor: colors.brandNavy,
+    shadowOffset: { height: 3, width: 0 },
+    shadowOpacity: 0.07,
+    shadowRadius: 8
   },
   sectionHeader: { color: colors.ink, fontSize: 24, fontWeight: "800", lineHeight: 30 },
   primaryButton: {
     alignItems: "center",
-    backgroundColor: colors.brandBlue,
+    backgroundColor: colors.brandNavy,
     borderRadius: radii.card,
     justifyContent: "center",
     minHeight: sizes.primaryButtonHeight,

@@ -1,8 +1,9 @@
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParams } from "../../app/navigation/AppNavigator";
 import { PrimaryButton } from "../../design/primitives";
+import { images } from "../../assets/registry";
 import { colors, radii, sizes, spacing } from "../../design/tokens";
 import { formatUsd } from "../../domain/money";
 import { useCart } from "./CartProvider";
@@ -44,11 +45,15 @@ export function CartScreen({ onSubmit }: { onSubmit?: () => void }) {
     );
   if (lines.length === 0) {
     return (
-      <View style={styles.empty}>
-        <Text accessibilityRole="header" style={styles.title}>
-          Your Cart
-        </Text>
-        <Text style={styles.body}>Your cart is ready for a fresh catch.</Text>
+      <View style={styles.empty} testID="cart-screen">
+        <View style={styles.emptyIntro}>
+          <Image accessible={false} source={images.brand.fishLineArt} style={styles.emptyDecoration} />
+          <Text style={styles.emptyEyebrow}>READY WHEN YOU ARE</Text>
+          <Text accessibilityRole="header" style={styles.emptyTitle}>
+            Your Cart
+          </Text>
+          <Text style={styles.emptyIntroBody}>Your cart is ready for a fresh catch.</Text>
+        </View>
         {storageError ? (
           <Text accessibilityRole="alert" style={styles.storageNotice}>
             {storageError}
@@ -65,12 +70,16 @@ export function CartScreen({ onSubmit }: { onSubmit?: () => void }) {
   }
   return (
     <ScrollView contentContainerStyle={styles.content} style={styles.screen} testID="cart-screen">
-      <Text accessibilityRole="header" style={styles.title}>
-        Your Cart
-      </Text>
-      <Text style={styles.body}>
-        {totalUnitCount} item{totalUnitCount === 1 ? "" : "s"} ready to review.
-      </Text>
+      <View style={styles.intro}>
+        <Image accessible={false} source={images.brand.fishLineArt} style={styles.introDecoration} />
+        <Text style={styles.eyebrow}>YOUR CATCH</Text>
+        <Text accessibilityRole="header" style={styles.title}>
+          Your Cart
+        </Text>
+        <Text style={styles.introBody}>
+          {totalUnitCount} item{totalUnitCount === 1 ? "" : "s"} ready to review.
+        </Text>
+      </View>
       {storageError ? (
         <Text accessibilityRole="alert" style={styles.storageNotice}>
           {storageError}
@@ -161,7 +170,28 @@ const styles = StyleSheet.create({
   content: { gap: spacing.standard, padding: spacing.screen },
   loading: { alignItems: "center", flex: 1, justifyContent: "center" },
   empty: { flex: 1, gap: spacing.standard, justifyContent: "center", padding: spacing.screen },
-  title: { color: colors.ink, fontSize: 30, fontWeight: "800", lineHeight: 36 },
+  intro: {
+    backgroundColor: colors.brandNavy,
+    borderRadius: 20,
+    gap: spacing.compact,
+    overflow: "hidden",
+    padding: spacing.standard
+  },
+  emptyIntro: {
+    backgroundColor: colors.brandYellow,
+    borderRadius: 20,
+    gap: spacing.compact,
+    overflow: "hidden",
+    padding: spacing.standard
+  },
+  introDecoration: { height: 112, opacity: 0.2, position: "absolute", right: -12, top: -24, width: 136 },
+  emptyDecoration: { height: 112, opacity: 0.16, position: "absolute", right: -12, top: -24, width: 136 },
+  eyebrow: { color: colors.brandYellow, fontSize: 12, fontWeight: "900", letterSpacing: 1.1 },
+  emptyEyebrow: { color: colors.brandNavy, fontSize: 12, fontWeight: "900", letterSpacing: 1.1 },
+  title: { color: colors.white, fontSize: 30, fontWeight: "800", lineHeight: 36 },
+  emptyTitle: { color: colors.ink, fontSize: 30, fontWeight: "800", lineHeight: 36 },
+  introBody: { color: colors.white, fontSize: 16, lineHeight: 23, maxWidth: "82%" },
+  emptyIntroBody: { color: colors.ink, fontSize: 16, lineHeight: 23, maxWidth: "82%" },
   body: { color: colors.mutedInk, fontSize: 16, lineHeight: 23 },
   storageNotice: { color: colors.danger, fontSize: 15, fontWeight: "700", lineHeight: 22 },
   line: {
@@ -190,12 +220,14 @@ const styles = StyleSheet.create({
   quantity: { color: colors.ink, fontSize: 17, fontWeight: "800", minWidth: 24, textAlign: "center" },
   lineTotal: { color: colors.ink, fontSize: 18, fontWeight: "800" },
   summary: {
-    backgroundColor: colors.brandYellow,
+    backgroundColor: colors.warmCream,
+    borderColor: colors.brandYellow,
+    borderWidth: 2,
     borderRadius: radii.card,
     gap: spacing.compact,
     padding: spacing.standard
   },
-  summaryLabel: { color: colors.brandBlue, fontSize: 12, fontWeight: "900", letterSpacing: 1 },
+  summaryLabel: { color: colors.brandNavy, fontSize: 12, fontWeight: "900", letterSpacing: 1 },
   subtotal: { color: colors.ink, fontSize: 30, fontWeight: "900" },
   summaryNote: { color: colors.ink, fontSize: 14, lineHeight: 20 },
   clear: { alignItems: "center", minHeight: sizes.minimumTapTarget, paddingVertical: 10 },

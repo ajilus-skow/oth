@@ -66,7 +66,8 @@ function TabNavigator() {
   return (
     <Tabs.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: colors.brandYellow },
+        headerStyle: { backgroundColor: colors.brandNavy },
+        headerTintColor: colors.white,
         // Keep the compact native header within its fixed safe-area height at
         // Accessibility text sizes. Screen content remains Dynamic Type aware.
         headerTitleAllowFontScaling: false,
@@ -156,11 +157,11 @@ const styles = StyleSheet.create({
   placeholder: { flex: 1, gap: spacing.standard, justifyContent: "center", padding: spacing.screen },
   body: { color: colors.mutedInk, fontSize: 16 },
   cartButton: { alignItems: "center", flexDirection: "row", minHeight: 44, paddingHorizontal: spacing.compact },
-  cartIcon: { color: colors.brandBlue, fontSize: 15, fontWeight: "800" },
+  cartIcon: { color: colors.white, fontSize: 15, fontWeight: "800" },
   badge: {
-    backgroundColor: colors.brandBlue,
+    backgroundColor: colors.brandYellow,
     borderRadius: 10,
-    color: colors.white,
+    color: colors.ink,
     fontSize: 12,
     fontWeight: "900",
     marginLeft: 4,

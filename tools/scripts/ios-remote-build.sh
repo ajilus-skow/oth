@@ -12,7 +12,9 @@ readonly ARTIFACT_DIR="${PROJECT_ROOT}/artifacts/ios-remote"
 readonly APP_NAME="oth"
 readonly BUNDLE_ID="com.ajilus.oth"
 readonly METRO_PORT="${IOS_METRO_PORT:-8097}"
-readonly SIMULATOR_NAME="${IOS_SIMULATOR_NAME:-OTH iPhone 17 Pro}"
+# This is intentionally not configurable: the remote Mac is also used by
+# Audestra, and OTH automation must never target its Simulator.
+readonly SIMULATOR_NAME="OTH iPhone 17 Pro"
 
 SSH_OPTIONS=(-i "${SSH_KEY}" -o BatchMode=yes -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new)
 
@@ -185,8 +187,12 @@ curl --fail --silent "http://127.0.0.1:${metro_port}/status" >/dev/null 2>&1 || 
   tail -60 "${remote_dir}/metro-${metro_port}.log" >&2 || true
   exit 1
 }
-device="$(xcrun simctl list devices available | awk -F '[()]' -v name="${simulator_name}" '$0 ~ name {print $2; exit}')"
-[[ -n "${device}" ]] || { echo 'No available iPhone simulator found.' >&2; exit 1; }
+device="$(xcrun simctl list devices available | awk -F '[()]' -v name="${simulator_name}" '{
+  label = $1
+  gsub(/^[[:space:]]+|[[:space:]]+$/, "", label)
+  if (label == name) { print $2; exit }
+}')"
+[[ -n "${device}" ]] || { echo "No available simulator named ${simulator_name}." >&2; exit 1; }
 xcrun simctl boot "${device}" 2>/dev/null || true
 open -a Simulator
 xcrun simctl bootstatus "${device}" -b

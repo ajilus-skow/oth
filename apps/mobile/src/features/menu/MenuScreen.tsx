@@ -34,11 +34,15 @@ export function MenuScreen() {
   }, [repository]);
   const category = content.categories.find(item => item.id === categoryId) ?? content.categories[0];
   return (
-    <ScrollView contentContainerStyle={styles.content} style={styles.screen}>
-      <Text accessibilityRole="header" style={styles.title}>
-        Menu
-      </Text>
-      <Text style={styles.body}>Made fresh at the truck. Availability can vary by location.</Text>
+    <ScrollView contentContainerStyle={styles.content} style={styles.screen} testID="menu-screen">
+      <View style={styles.intro}>
+        <Image accessible={false} source={images.brand.fishLineArt} style={styles.introDecoration} />
+        <Text style={styles.eyebrow}>FRESH FROM THE TRUCK</Text>
+        <Text accessibilityRole="header" style={styles.title}>
+          Menu
+        </Text>
+        <Text style={styles.introBody}>Made fresh at the truck. Availability can vary by location.</Text>
+      </View>
       {storageError ? (
         <Text accessibilityRole="alert" style={styles.storageNotice}>
           {storageError}
@@ -153,7 +157,18 @@ function MenuCartControl({
 const styles = StyleSheet.create({
   screen: { backgroundColor: colors.offWhite, flex: 1 },
   content: { gap: spacing.standard, padding: spacing.screen },
-  title: { color: colors.ink, fontSize: 30, fontWeight: "800", lineHeight: 36 },
+  intro: {
+    backgroundColor: colors.brandNavy,
+    borderRadius: 20,
+    gap: spacing.compact,
+    overflow: "hidden",
+    padding: spacing.standard,
+    position: "relative"
+  },
+  introDecoration: { height: 112, opacity: 0.2, position: "absolute", right: -12, top: -24, width: 136 },
+  eyebrow: { color: colors.brandYellow, fontSize: 12, fontWeight: "900", letterSpacing: 1.1 },
+  title: { color: colors.white, fontSize: 30, fontWeight: "800", lineHeight: 36 },
+  introBody: { color: colors.white, fontSize: 16, lineHeight: 23, maxWidth: "82%" },
   body: { color: colors.mutedInk, fontSize: 16, lineHeight: 23 },
   storageNotice: { color: colors.danger, fontSize: 15, fontWeight: "700", lineHeight: 22 },
   tabs: { flexDirection: "row", gap: spacing.compact },
@@ -166,9 +181,9 @@ const styles = StyleSheet.create({
     minHeight: 44,
     justifyContent: "center"
   },
-  selectedTab: { backgroundColor: colors.brandBlue },
+  selectedTab: { backgroundColor: colors.brandYellow, borderColor: colors.brandYellow },
   tabText: { color: colors.brandBlue, fontWeight: "700" },
-  selectedTabText: { color: colors.white },
+  selectedTabText: { color: colors.ink },
   card: { gap: spacing.compact },
   image: { borderRadius: 10, height: 150, width: "100%" },
   itemName: { color: colors.ink, fontSize: 20, fontWeight: "800", lineHeight: 26 },

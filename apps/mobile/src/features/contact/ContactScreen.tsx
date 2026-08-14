@@ -1,5 +1,6 @@
-import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import bootstrap from "../../content/bootstrap.json";
+import { images } from "../../assets/registry";
 import { Card, PrimaryButton, StatusMessage } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
 import { openExternalUrl, validateExternalUrl } from "../../services/linking/externalLinks";
@@ -33,12 +34,16 @@ export function ContactScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.content} style={styles.screen}>
-      <Text accessibilityRole="header" style={styles.title}>
-        Contact Us
-      </Text>
-      <Text style={styles.description}>
-        Questions, feedback, or a great truck-visit story? We’d love to hear from you.
-      </Text>
+      <View style={styles.intro}>
+        <Image accessible={false} source={images.brand.friesLineArt} style={styles.introDecoration} />
+        <Text style={styles.eyebrow}>WE’D LOVE TO HEAR FROM YOU</Text>
+        <Text accessibilityRole="header" style={styles.title}>
+          Contact Us
+        </Text>
+        <Text style={styles.introBody}>
+          Questions, feedback, or a great truck-visit story? We’d love to hear from you.
+        </Text>
+      </View>
       <Card style={styles.card}>
         <Text style={styles.label}>EMAIL</Text>
         <Text selectable style={styles.value}>
@@ -71,8 +76,17 @@ export function ContactScreen() {
 const styles = StyleSheet.create({
   screen: { backgroundColor: colors.offWhite, flex: 1 },
   content: { gap: spacing.standard, padding: spacing.screen },
+  intro: {
+    backgroundColor: colors.seaMist,
+    borderRadius: 20,
+    gap: spacing.compact,
+    overflow: "hidden",
+    padding: spacing.standard
+  },
+  introDecoration: { bottom: -36, height: 128, opacity: 0.17, position: "absolute", right: -20, width: 128 },
+  eyebrow: { color: colors.brandBlue, fontSize: 12, fontWeight: "900", letterSpacing: 1 },
   title: { color: colors.ink, fontSize: 30, fontWeight: "800", lineHeight: 36 },
-  description: { color: colors.mutedInk, fontSize: 16, lineHeight: 23 },
+  introBody: { color: colors.mutedInk, fontSize: 16, lineHeight: 23, maxWidth: "82%" },
   card: { gap: spacing.standard },
   label: { color: colors.mutedInk, fontSize: 13, fontWeight: "700", letterSpacing: 0.6 },
   value: { color: colors.ink, fontSize: 20, fontWeight: "700", lineHeight: 28 }

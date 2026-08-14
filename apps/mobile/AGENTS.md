@@ -43,7 +43,10 @@ These rules apply to `apps/mobile/`.
   workflow via `make help-ios`. Edit locally only: the remote
   `~/on-the-hook-ios-build` checkout is an rsync mirror. Use
   `ios-remote-build` for a Simulator build, `ios-remote-run` to launch it, and
-  `ios-remote-logs` for diagnostics; do not copy secrets to the Mac.
+  `ios-remote-logs` for diagnostics; do not copy secrets to the Mac. The only
+  permitted remote Simulator is `OTH iPhone 17 Pro`
+  (`12276A7B-EAB6-46DB-8C34-5316EAAC6CB8`); never select or modify Audestra's
+  Simulator.
 
 ## Product Reference Package
 

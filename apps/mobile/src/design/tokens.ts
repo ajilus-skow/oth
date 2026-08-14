@@ -1,8 +1,11 @@
 export const colors = {
   brandBlue: "#0382C8",
+  brandNavy: "#004B78",
   brandYellow: "#FDC756",
+  warmCream: "#FFF8EA",
+  seaMist: "#DCEFF1",
   white: "#FFFFFF",
-  offWhite: "#EFF1ED",
+  offWhite: "#F4F6F3",
   ink: "#10212A",
   mutedInk: "#53636B",
   border: "#D9E1E5",

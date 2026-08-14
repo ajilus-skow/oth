@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { Pressable, ScrollView, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
+import { Image, Pressable, ScrollView, SectionList, StyleSheet, Text, TextInput, View } from "react-native";
+import { images } from "../../assets/registry";
 import { Card, PrimaryButton, StatusMessage } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
 import type { TruckEvent } from "../../domain/models";
@@ -83,10 +84,16 @@ export function FindUsScreen() {
       keyExtractor={event => event.eventId}
       ListHeaderComponent={
         <>
-          <Text accessibilityRole="header" style={styles.title}>
-            Find Us
-          </Text>
-          <Text style={styles.body}>Find a truck by city, state, or ZIP—or use your location just this once.</Text>
+          <View style={styles.intro}>
+            <Image accessible={false} source={images.brand.friesLineArt} style={styles.introDecoration} />
+            <Text style={styles.eyebrow}>ON THE ROAD</Text>
+            <Text accessibilityRole="header" style={styles.title}>
+              Find Us
+            </Text>
+            <Text style={styles.introBody}>
+              Find a truck by city, state, or ZIP—or use your location just this once.
+            </Text>
+          </View>
           <TextInput
             accessibilityLabel="Search city state ZIP or host"
             onChangeText={value => {
@@ -209,7 +216,17 @@ function EventCard({ event, onDetails }: { event: TruckEvent; onDetails: () => v
 const styles = StyleSheet.create({
   screen: { backgroundColor: colors.offWhite, flex: 1 },
   content: { gap: spacing.standard, padding: spacing.screen, paddingTop: spacing.section },
+  intro: {
+    backgroundColor: colors.brandYellow,
+    borderRadius: 20,
+    gap: spacing.compact,
+    overflow: "hidden",
+    padding: spacing.standard
+  },
+  introDecoration: { bottom: -38, height: 132, opacity: 0.2, position: "absolute", right: -22, width: 132 },
+  eyebrow: { color: colors.brandNavy, fontSize: 12, fontWeight: "900", letterSpacing: 1.1 },
   title: { color: colors.ink, fontSize: 30, fontWeight: "800", lineHeight: 36 },
+  introBody: { color: colors.ink, fontSize: 16, lineHeight: 23, maxWidth: "82%" },
   body: { color: colors.mutedInk, fontSize: 16, lineHeight: 23 },
   input: {
     backgroundColor: colors.white,

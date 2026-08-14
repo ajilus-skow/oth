@@ -12,6 +12,11 @@ module.exports = {
         "xcodebuild -workspace ios/oth.xcworkspace -scheme oth -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build CODE_SIGNING_ALLOWED=NO"
     }
   },
-  devices: { simulator: { type: "ios.simulator", device: { type: "iPhone 17 Pro" } } },
+  devices: {
+    simulator: {
+      type: "ios.simulator",
+      device: { id: "12276A7B-EAB6-46DB-8C34-5316EAAC6CB8" }
+    }
+  },
   configurations: { "ios.sim.debug": { device: "simulator", app: "ios.debug" } }
 };

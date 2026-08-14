@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import type { RootStackParams } from "../../app/navigation/AppNavigator";
+import { images } from "../../assets/registry";
 import { externalDestinations } from "../../config/externalDestinations";
 import { colors, spacing } from "../../design/tokens";
 import { openExternalUrl } from "../../services/linking/externalLinks";
@@ -35,10 +36,14 @@ export function MoreScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.content} style={styles.screen}>
-      <Text accessibilityRole="header" style={styles.title}>
-        More
-      </Text>
-      <Text style={styles.description}>Account-free ways to stay connected with On The Hook.</Text>
+      <View style={styles.intro}>
+        <Image accessible={false} source={images.brand.fishLineArt} style={styles.introDecoration} />
+        <Text style={styles.eyebrow}>STAY IN THE LOOP</Text>
+        <Text accessibilityRole="header" style={styles.title}>
+          More
+        </Text>
+        <Text style={styles.introBody}>Account-free ways to stay connected with On The Hook.</Text>
+      </View>
       <View style={styles.list}>
         {moreRows.map(row => {
           const external = "url" in row;
@@ -81,8 +86,17 @@ export function MoreScreen() {
 const styles = StyleSheet.create({
   screen: { backgroundColor: colors.offWhite, flex: 1 },
   content: { gap: spacing.standard, padding: spacing.screen },
+  intro: {
+    backgroundColor: colors.seaMist,
+    borderRadius: 20,
+    gap: spacing.compact,
+    overflow: "hidden",
+    padding: spacing.standard
+  },
+  introDecoration: { height: 110, opacity: 0.13, position: "absolute", right: -12, top: -24, width: 136 },
+  eyebrow: { color: colors.brandBlue, fontSize: 12, fontWeight: "900", letterSpacing: 1.1 },
   title: { color: colors.ink, fontSize: 30, fontWeight: "800", lineHeight: 36 },
-  description: { color: colors.mutedInk, fontSize: 16, lineHeight: 23 },
+  introBody: { color: colors.mutedInk, fontSize: 16, lineHeight: 23, maxWidth: "82%" },
   list: { backgroundColor: colors.white, borderColor: colors.border, borderRadius: 16, borderWidth: 1 },
   row: {
     alignItems: "center",
