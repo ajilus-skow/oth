@@ -1,41 +1,31 @@
 import { useEffect, useMemo, useState } from "react";
-import { ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, type ImageSourcePropType } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  type ImageSourcePropType
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { images, OfficialWordmark } from "../../assets/registry";
 import type { RootStackParams } from "../../app/navigation/AppNavigator";
 import { Card, PrimaryButton } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
-import type { TruckEvent } from "../../domain/models";
 import { mobileEnvironment } from "../../config/environment";
 import { getMobileRepository } from "../../services/api/mockRepository";
-import { localHours } from "../locations/groupEvents";
-import { selectUpcomingEvents } from "../locations/selectEvents";
-import { ResourceState } from "../../design/ResourceState";
 
 type Navigation = NativeStackNavigationProp<RootStackParams>;
 export function HomeScreen() {
   const navigation = useNavigation<Navigation>();
   const repository = useMemo(() => getMobileRepository(mobileEnvironment.useMockData), []);
-  const [events, setEvents] = useState<TruckEvent[]>([]);
   const [hero, setHero] = useState({
     title: "Fresh, wild-caught fish and chips.",
     subtitle: "Brought to your neck of the woods."
   });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const load = () => {
-    setLoading(true);
-    void repository
-      .events({ limit: 3 })
-      .then(page => {
-        setEvents(selectUpcomingEvents(page.events, new Date()).slice(0, 3));
-        setError(false);
-      })
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  };
-  useEffect(load, [repository]);
   useEffect(() => {
     void repository.bootstrap().then(value => {
       const content =
@@ -63,62 +53,36 @@ export function HomeScreen() {
           </PrimaryButton>
         </View>
       </ImageBackground>
-      <Text accessibilityRole="header" style={styles.heading}>
-        Coming Near You
-      </Text>
-      {loading ? (
-        <ResourceState kind="loading" />
-      ) : error && !events.length ? (
-        <ResourceState kind="error" onRetry={load} />
-      ) : events.length ? (
-        events.map(event => (
-          <Card key={event.eventId} style={styles.event}>
-            <Text style={styles.city}>
-              {event.city}, {event.state}
-            </Text>
-            <Text style={styles.body}>
-              {event.hostName} · {localHours(event)}
-            </Text>
-            <Pressable
-              accessibilityRole="button"
-              onPress={() => navigation.navigate("EventDetail", { eventId: event.eventId })}
-            >
-              <Text style={styles.link}>Details</Text>
-            </Pressable>
-          </Card>
-        ))
-      ) : (
-        <ResourceState
-          kind="empty"
-          title="Choose an area"
-          body="Search by city, state, or ZIP to see upcoming visits."
-        />
-      )}
-      <Text accessibilityRole="header" style={styles.heading}>
-        Why On The Hook
-      </Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.story}
-        accessibilityLabel="Why On The Hook stories"
-      >
-        <StoryCard image={images.photos.freshestTaste} title="Line Caught">
-          Wild fish caught one at a time for freshness.
-        </StoryCard>
-        <StoryCard image={images.photos.fishAndChipsEating} title="Hand Battered">
-          Prepared fresh at the truck.
-        </StoryCard>
-        <StoryCard image={images.photos.originalSauces} title="Secret-Recipe Sauces">
-          Made in Wyoming to pair with every order.
-        </StoryCard>
-      </ScrollView>
-      <Card style={styles.alertCard}>
-        <Text style={styles.storyTitle}>Get notified when we’re coming to your city.</Text>
-        <Pressable accessibilityRole="button" onPress={() => navigation.navigate("NotificationSettings")}>
-          <Text style={styles.link}>Set Up Alerts</Text>
-        </Pressable>
-      </Card>
+      <View style={styles.storySection}>
+        <Image source={images.brand.fishLineArt} style={styles.fishDecoration} accessibilityElementsHidden />
+        <Image source={images.brand.friesLineArt} style={styles.friesDecoration} accessibilityElementsHidden />
+        <Text style={styles.eyebrow}>TRADITION WITH A TWIST</Text>
+        <Text accessibilityRole="header" style={styles.heading}>
+          Why On The Hook
+        </Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.story}
+          accessibilityLabel="Why On The Hook stories"
+        >
+          <StoryCard image={images.photos.freshestTaste} title="Line Caught">
+            Wild fish caught one at a time for freshness.
+          </StoryCard>
+          <StoryCard image={images.photos.fishAndChipsEating} title="Hand Battered">
+            Prepared fresh at the truck.
+          </StoryCard>
+          <StoryCard image={images.photos.originalSauces} title="Secret-Recipe Sauces">
+            Made in Wyoming to pair with every order.
+          </StoryCard>
+        </ScrollView>
+        <Card style={styles.alertCard}>
+          <Text style={styles.storyTitle}>Get notified when we’re coming to your city.</Text>
+          <Pressable accessibilityRole="button" onPress={() => navigation.navigate("NotificationSettings")}>
+            <Text style={styles.link}>Set Up Alerts</Text>
+          </Pressable>
+        </Card>
+      </View>
     </ScrollView>
   );
 }
@@ -150,11 +114,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "800",
     lineHeight: 30,
-    marginHorizontal: spacing.screen,
-    marginTop: spacing.standard
+    marginHorizontal: spacing.screen
   },
-  event: { gap: spacing.compact, marginHorizontal: spacing.screen },
-  city: { color: colors.ink, fontSize: 18, fontWeight: "800" },
+  storySection: {
+    backgroundColor: colors.brandYellow,
+    gap: spacing.standard,
+    overflow: "hidden",
+    paddingVertical: spacing.section,
+    position: "relative"
+  },
+  eyebrow: {
+    color: colors.ink,
+    fontSize: 13,
+    fontWeight: "800",
+    letterSpacing: 1.2,
+    marginHorizontal: spacing.screen
+  },
   body: { color: colors.mutedInk, fontSize: 16, lineHeight: 23 },
   link: { color: colors.brandBlue, fontSize: 16, fontWeight: "700", minHeight: 44, paddingTop: 10 },
   story: { gap: spacing.standard, paddingHorizontal: spacing.screen },
@@ -164,5 +139,7 @@ const styles = StyleSheet.create({
   storyScrim: { backgroundColor: colors.scrim, flex: 1, justifyContent: "flex-end", padding: spacing.standard },
   storyImageTitle: { color: colors.white, fontSize: 22, fontWeight: "800", lineHeight: 28 },
   storyTitle: { color: colors.ink, fontSize: 18, fontWeight: "800", lineHeight: 24 },
-  alertCard: { gap: spacing.compact, marginHorizontal: spacing.screen }
+  alertCard: { gap: spacing.compact, marginHorizontal: spacing.screen },
+  fishDecoration: { height: 96, opacity: 0.22, position: "absolute", right: -18, top: -20, width: 116 },
+  friesDecoration: { bottom: -30, height: 128, left: -30, opacity: 0.18, position: "absolute", width: 128 }
 });

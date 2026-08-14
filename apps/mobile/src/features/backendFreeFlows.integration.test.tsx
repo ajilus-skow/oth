@@ -35,7 +35,10 @@ jest.mock("../services/calendar/nativeCalendar", () => ({
   addCalendarEvent: (...args: unknown[]) => mockAddCalendarEvent(...args)
 }));
 jest.mock("../assets/registry", () => ({
-  images: { photos: { truckSide: 1 } },
+  images: {
+    brand: { fishLineArt: 2, friesLineArt: 3 },
+    photos: { truckSide: 1, freshestTaste: 4, fishAndChipsEating: 5, originalSauces: 6 }
+  },
   OfficialWordmark: () => null
 }));
 
