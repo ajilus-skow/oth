@@ -139,7 +139,7 @@ function StoryCard({ children, image, title }: { children: string; image: ImageS
 const styles = StyleSheet.create({
   screen: { backgroundColor: colors.offWhite, flex: 1 },
   content: { gap: spacing.standard, paddingBottom: spacing.screen },
-  hero: { height: 350, justifyContent: "flex-end" },
+  hero: { justifyContent: "flex-end", minHeight: 350 },
   heroImage: { resizeMode: "cover" },
   scrim: { backgroundColor: "rgba(0,0,0,0.45)", gap: spacing.standard, padding: spacing.screen },
   wordmark: { alignItems: "center" },
