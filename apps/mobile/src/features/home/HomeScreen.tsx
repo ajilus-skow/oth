@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ImageBackground, Pressable, ScrollView, StyleSheet, Text, View, type ImageSourcePropType } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { images, OfficialWordmark } from "../../assets/registry";
@@ -97,20 +97,22 @@ export function HomeScreen() {
       <Text accessibilityRole="header" style={styles.heading}>
         Why On The Hook
       </Text>
-      <View style={styles.story}>
-        <Card style={styles.storyCard}>
-          <Text style={styles.storyTitle}>Line Caught</Text>
-          <Text style={styles.body}>Wild fish caught one at a time for freshness.</Text>
-        </Card>
-        <Card style={styles.storyCard}>
-          <Text style={styles.storyTitle}>Hand Battered</Text>
-          <Text style={styles.body}>Prepared fresh at the truck.</Text>
-        </Card>
-        <Card style={styles.storyCard}>
-          <Text style={styles.storyTitle}>Secret-Recipe Sauces</Text>
-          <Text style={styles.body}>Made in Wyoming to pair with every order.</Text>
-        </Card>
-      </View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.story}
+        accessibilityLabel="Why On The Hook stories"
+      >
+        <StoryCard image={images.photos.freshestTaste} title="Line Caught">
+          Wild fish caught one at a time for freshness.
+        </StoryCard>
+        <StoryCard image={images.photos.fishAndChipsEating} title="Hand Battered">
+          Prepared fresh at the truck.
+        </StoryCard>
+        <StoryCard image={images.photos.originalSauces} title="Secret-Recipe Sauces">
+          Made in Wyoming to pair with every order.
+        </StoryCard>
+      </ScrollView>
       <Card style={styles.alertCard}>
         <Text style={styles.storyTitle}>Get notified when we’re coming to your city.</Text>
         <Pressable accessibilityRole="button" onPress={() => navigation.navigate("NotificationSettings")}>
@@ -120,6 +122,20 @@ export function HomeScreen() {
     </ScrollView>
   );
 }
+
+function StoryCard({ children, image, title }: { children: string; image: ImageSourcePropType; title: string }) {
+  return (
+    <Card style={styles.storyCard}>
+      <ImageBackground source={image} style={styles.storyImage} imageStyle={styles.storyImageCrop}>
+        <View style={styles.storyScrim}>
+          <Text style={styles.storyImageTitle}>{title}</Text>
+        </View>
+      </ImageBackground>
+      <Text style={styles.body}>{children}</Text>
+    </Card>
+  );
+}
+
 const styles = StyleSheet.create({
   screen: { backgroundColor: colors.offWhite, flex: 1 },
   content: { gap: spacing.standard, paddingBottom: spacing.screen },
@@ -141,8 +157,12 @@ const styles = StyleSheet.create({
   city: { color: colors.ink, fontSize: 18, fontWeight: "800" },
   body: { color: colors.mutedInk, fontSize: 16, lineHeight: 23 },
   link: { color: colors.brandBlue, fontSize: 16, fontWeight: "700", minHeight: 44, paddingTop: 10 },
-  story: { flexDirection: "row", gap: spacing.standard, paddingHorizontal: spacing.screen },
-  storyCard: { flex: 1, gap: spacing.compact },
+  story: { gap: spacing.standard, paddingHorizontal: spacing.screen },
+  storyCard: { gap: spacing.standard, width: 272 },
+  storyImage: { height: 152, margin: -spacing.standard, marginBottom: 0, overflow: "hidden" },
+  storyImageCrop: { borderTopLeftRadius: 15, borderTopRightRadius: 15, resizeMode: "cover" },
+  storyScrim: { backgroundColor: colors.scrim, flex: 1, justifyContent: "flex-end", padding: spacing.standard },
+  storyImageTitle: { color: colors.white, fontSize: 22, fontWeight: "800", lineHeight: 28 },
   storyTitle: { color: colors.ink, fontSize: 18, fontWeight: "800", lineHeight: 24 },
   alertCard: { gap: spacing.compact, marginHorizontal: spacing.screen }
 });

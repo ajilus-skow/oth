@@ -94,6 +94,7 @@ export function FindUsScreen() {
               analytics.track({ name: "find_search_submitted", properties: { queryType: searchQueryType(value) } });
             }}
             placeholder="City, state, ZIP, or host"
+            placeholderTextColor={colors.mutedInk}
             style={styles.input}
             value={query}
           />
@@ -105,6 +106,7 @@ export function FindUsScreen() {
                 analytics.track({ name: "find_filter_changed", properties: { filter: "date" } });
               }}
               placeholder="YYYY-MM-DD"
+              placeholderTextColor={colors.mutedInk}
               style={styles.dateInput}
               value={date}
             />
@@ -206,18 +208,31 @@ function EventCard({ event, onDetails }: { event: TruckEvent; onDetails: () => v
 
 const styles = StyleSheet.create({
   screen: { backgroundColor: colors.offWhite, flex: 1 },
-  content: { gap: spacing.standard, padding: spacing.screen },
+  content: { gap: spacing.standard, padding: spacing.screen, paddingTop: spacing.section },
   title: { color: colors.ink, fontSize: 30, fontWeight: "800", lineHeight: 36 },
   body: { color: colors.mutedInk, fontSize: 16, lineHeight: 23 },
-  input: { backgroundColor: colors.white, borderColor: colors.border, borderWidth: 1, borderRadius: 10, padding: 12 },
-  filters: { flexDirection: "row", alignItems: "center", gap: spacing.compact },
+  input: {
+    backgroundColor: colors.white,
+    borderColor: colors.border,
+    borderRadius: 10,
+    borderWidth: 1,
+    color: colors.ink,
+    fontSize: 16,
+    minHeight: 52,
+    paddingHorizontal: 12
+  },
+  filters: { alignItems: "center", flexDirection: "row", flexWrap: "wrap", gap: spacing.compact },
   dateInput: {
     backgroundColor: colors.white,
     borderColor: colors.border,
     borderWidth: 1,
     borderRadius: 10,
-    flex: 1,
-    padding: 12
+    color: colors.ink,
+    flexGrow: 1,
+    fontSize: 16,
+    minHeight: 52,
+    minWidth: 180,
+    paddingHorizontal: 12
   },
   clear: { color: colors.brandBlue, fontWeight: "700" },
   stateOptions: { gap: spacing.compact },

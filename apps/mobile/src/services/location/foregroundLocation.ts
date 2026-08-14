@@ -16,9 +16,16 @@ export async function locationPermissionState(): Promise<ForegroundLocationResul
 }
 
 export async function requestForegroundLocation(): Promise<ForegroundLocationResult> {
-  const existing = await locationPermissionState();
-  const permission = existing.ok ? await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE) : null;
-  const failure = permission ? permissionResult(permission) : existing.ok ? null : existing;
+  const currentStatus = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+  if (currentStatus === "unavailable") return { ok: false, reason: "unavailable" };
+
+  // Request only in response to the customer's Near Me action. Checking first
+  // avoids an unnecessary prompt when access has already been granted.
+  const permission =
+    currentStatus === "granted" || currentStatus === "limited"
+      ? currentStatus
+      : await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+  const failure = permissionResult(permission);
   if (failure) return failure;
 
   return new Promise(resolve => {
