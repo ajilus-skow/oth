@@ -5,9 +5,11 @@ These rules apply to `apps/mobile/`.
 ## Product Guardrails
 
 - Build native React Native screens; never ship the website in a WebView.
-- Do not implement an ordering cart, checkout, payments, accounts, loyalty, or
-  order history in v1. `orderUrl` is opaque and may only be opened after an
-  explicit user action; never crawl or inspect its vendor destination.
+- The local-only Menu cart prototype may add bundled, baseline-priced items,
+  persist cart intent on-device, and create a local confirmation only. Never
+  transmit an order, process payment, add accounts, loyalty, or order history.
+  `orderUrl` remains opaque and may only be opened after an explicit user
+  action; never crawl or inspect its vendor destination.
 - Do not scrape `onthehookfishandchips.com` at runtime. Mobile data comes from
   structured first-party endpoints defined in `docs/mobile/API_CONTRACT.md`.
 - Location access is optional and foreground-only. Never request it at launch,

@@ -10,32 +10,48 @@
           "name": "Fish & Chips",
           "description": "3 pieces of crispy and sustainable hand-battered Cod with a side of fries. Over 40 grams of protein.",
           "imageKey": "fish-and-chips-plate",
-          "price": null,
-          "currency": null
+          "priceCents": 1800,
+          "purchasable": true
         },
         {
-          "id": "just-fish",
-          "name": "Wild Alaskan Cod (Just Fish)",
+          "id": "wild-alaskan-cod-1-piece",
+          "name": "Wild Alaskan Cod (Just Fish) — 1 Piece",
+          "description": "Crispy and sustainable hand-battered Cod. Fries not included.",
+          "imageKey": "freshest-taste",
+          "priceCents": 700,
+          "purchasable": true
+        },
+        {
+          "id": "wild-alaskan-cod-2-pieces",
+          "name": "Wild Alaskan Cod (Just Fish) — 2 Pieces",
+          "description": "Crispy and sustainable hand-battered Cod. Fries not included.",
+          "imageKey": "freshest-taste",
+          "priceCents": 1400,
+          "purchasable": true
+        },
+        {
+          "id": "wild-alaskan-cod-3-pieces",
+          "name": "Wild Alaskan Cod (Just Fish) — 3 Pieces",
           "description": "3 pieces of crispy and sustainable hand-battered Cod. Over 40 grams of protein. Fries not included.",
           "imageKey": "freshest-taste",
-          "price": null,
-          "currency": null
+          "priceCents": 1600,
+          "purchasable": true
         },
         {
           "id": "large-chips",
           "name": "Large Chips",
           "description": "Salty, seasoned, and lightly battered.",
           "imageKey": null,
-          "price": null,
-          "currency": null
+          "priceCents": 700,
+          "purchasable": true
         },
         {
           "id": "kids-meal",
           "name": "Kids Meal",
           "description": "5 mini cod cakes, fries and sauce.",
           "imageKey": null,
-          "price": null,
-          "currency": null
+          "priceCents": 700,
+          "purchasable": true
         }
       ]
     },
@@ -48,24 +64,40 @@
           "name": "Fresh Slaw",
           "description": "Crisp greens and a zesty sesame dressing.",
           "imageKey": null,
-          "price": null,
-          "currency": null
+          "priceCents": 300,
+          "purchasable": true
         },
         {
           "id": "cod-cakes",
           "name": "Cod Cakes",
           "description": "Bite-sized delights made with Alaskan Cod, lightly seasoned, and coated in crispy panko breading. 5 cod cakes.",
           "imageKey": null,
-          "price": null,
-          "currency": null
+          "priceCents": 600,
+          "purchasable": true
         },
         {
-          "id": "bacon-clam-chowder",
-          "name": "Bacon Clam Chowder",
+          "id": "bacon-clam-chowder-8oz",
+          "name": "Bacon Clam Chowder — 8 oz",
           "description": "Tender clams, harvested sustainably, and succulent bacon. A rich and creamy duo.",
           "imageKey": null,
-          "price": null,
-          "currency": null
+          "priceCents": 600,
+          "purchasable": true
+        },
+        {
+          "id": "bacon-clam-chowder-16oz",
+          "name": "Bacon Clam Chowder — 16 oz",
+          "description": "Tender clams, harvested sustainably, and succulent bacon. A rich and creamy duo.",
+          "imageKey": null,
+          "priceCents": 1100,
+          "purchasable": true
+        },
+        {
+          "id": "bacon-clam-chowder-32oz",
+          "name": "Bacon Clam Chowder — 32 oz",
+          "description": "Tender clams, harvested sustainably, and succulent bacon. A rich and creamy duo.",
+          "imageKey": null,
+          "priceCents": 2200,
+          "purchasable": true
         }
       ]
     },
@@ -78,32 +110,32 @@
           "name": "Alaskan Strawberry Soda",
           "description": "Made the old-fashioned way: real strawberries and cane sugar.",
           "imageKey": null,
-          "price": null,
-          "currency": null
+          "priceCents": 300,
+          "purchasable": true
         },
         {
           "id": "fountain-drink",
           "name": "Fountain Drink",
           "description": "Coke, Diet Coke, Coke Zero, Sprite, Dr. Pepper, Minute Maid.",
           "imageKey": null,
-          "price": null,
-          "currency": null
+          "priceCents": 300,
+          "purchasable": true
         },
         {
           "id": "harborside-root-beer",
           "name": "Harborside Root Beer",
           "description": "A slow-sipping root beer with hints of vanilla and honey.",
           "imageKey": null,
-          "price": null,
-          "currency": null
+          "priceCents": 300,
+          "purchasable": true
         },
         {
-          "id": "water",
+          "id": "water-bottle",
           "name": "Water Bottle",
           "description": "Bottled water.",
           "imageKey": null,
-          "price": null,
-          "currency": null
+          "priceCents": 200,
+          "purchasable": true
         }
       ]
     }

@@ -15,14 +15,18 @@ The app is intentionally focused on the customer-facing information and navigati
 
 - Home with brand story, nearby/upcoming truck teaser, and a strong Find a Truck CTA.
 - Find Us with Near Me, city/ZIP/state/date filtering, list/map toggle, truck-event details, directions, calendar handoff, and external ordering handoff.
-- Menu with Entrees, Sides, and Drinks.
+- Menu with Entrees, Sides, Drinks, and a local-only prototype cart using
+  bundled baseline prices.
 - About with line-caught sourcing, sustainability, hand-battering, sauces, and brand photography.
 - More with Contact, Jobs, Store, Franchise, notification/location settings, Privacy Policy, and Terms.
 - Push notifications for upcoming truck visits near a user's chosen home area.
 
 ## Explicit non-goals for v1
 
-- Do not implement a native ordering cart or checkout.
+- Do not transmit a cart as a real restaurant order or implement checkout,
+  payment, taxes, tips, accounts, loyalty, or order history. The approved
+  local-only prototype cart may persist bundled item IDs/quantities on-device
+  and show a confirmation that no order was transmitted.
 - Do not crawl, reverse-engineer, or reproduce third-party ordering/vendor flows.
 - Do not create customer accounts, loyalty, rewards, payment methods, or order history.
 - Do not scrape the production website HTML at runtime.

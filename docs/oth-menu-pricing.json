@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "currency": "USD",
+  "pricingMode": "prototype-baseline",
+  "asOfDate": "2026-08-14",
+  "sourceBasis": {
+    "description": "Baseline prototype prices derived from On The Hook's public ordering menu. Johnstown, Colorado pricing is used where directly visible; size/variant prices and add-ons are taken from public On The Hook ordering pages. This file is bundled prototype data and MUST NOT be refreshed at runtime.",
+    "runtimeNetworkRequired": false,
+    "locationPricingMayVary": true
+  },
+  "implementationRules": {
+    "moneyRepresentation": "integer cents",
+    "useForPrototypeCart": true,
+    "allowRuntimeScraping": false,
+    "allowRemotePriceLookup": false,
+    "allowApiFallback": false,
+    "note": "Treat these as the authoritative prices for the standalone prototype until the product intentionally introduces location-specific pricing. Do not block cart work waiting for a backend or first-party pricing API."
+  },
+  "categories": [
+    {
+      "id": "entrees",
+      "name": "Entrees",
+      "items": [
+        {
+          "id": "fish-and-chips",
+          "name": "Fish & Chips",
+          "description": "3 pieces of crispy hand-battered cod with fries.",
+          "priceCents": 1800,
+          "purchasable": true
+        },
+        {
+          "id": "wild-alaskan-cod-1-piece",
+          "name": "Wild Alaskan Cod (Just Fish) — 1 Piece",
+          "description": "Cod only; fries not included.",
+          "priceCents": 700,
+          "purchasable": true,
+          "variantOf": "wild-alaskan-cod"
+        },
+        {
+          "id": "wild-alaskan-cod-2-pieces",
+          "name": "Wild Alaskan Cod (Just Fish) — 2 Pieces",
+          "description": "Cod only; fries not included.",
+          "priceCents": 1400,
+          "purchasable": true,
+          "variantOf": "wild-alaskan-cod"
+        },
+        {
+          "id": "wild-alaskan-cod-3-pieces",
+          "name": "Wild Alaskan Cod (Just Fish) — 3 Pieces",
+          "description": "Cod only; fries not included.",
+          "priceCents": 1600,
+          "purchasable": true,
+          "variantOf": "wild-alaskan-cod"
+        },
+        {
+          "id": "large-chips",
+          "name": "Large Chips",
+          "description": "Seasoned, lightly battered fries.",
+          "priceCents": 700,
+          "purchasable": true
+        },
+        {
+          "id": "kids-meal",
+          "name": "Kids Meal",
+          "description": "5 mini cod cakes, fries and sauce.",
+          "priceCents": 700,
+          "purchasable": true
+        }
+      ]
+    },
+    {
+      "id": "sides",
+      "name": "Sides",
+      "items": [
+        {
+          "id": "fresh-slaw",
+          "name": "Fresh Slaw",
+          "description": "Crisp greens with sesame dressing.",
+          "priceCents": 300,
+          "purchasable": true
+        },
+        {
+          "id": "cod-cakes",
+          "name": "Cod Cakes",
+          "description": "5 panko-breaded Alaskan cod cakes.",
+          "priceCents": 600,
+          "purchasable": true
+        },
+        {
+          "id": "bacon-clam-chowder-8oz",
+          "name": "Bacon Clam Chowder — 8 oz",
+          "priceCents": 600,
+          "purchasable": true,
+          "variantOf": "bacon-clam-chowder"
+        },
+        {
+          "id": "bacon-clam-chowder-16oz",
+          "name": "Bacon Clam Chowder — 16 oz",
+          "priceCents": 1100,
+          "purchasable": true,
+          "variantOf": "bacon-clam-chowder"
+        },
+        {
+          "id": "bacon-clam-chowder-32oz",
+          "name": "Bacon Clam Chowder — 32 oz",
+          "priceCents": 2200,
+          "purchasable": true,
+          "variantOf": "bacon-clam-chowder"
+        }
+      ]
+    },
+    {
+      "id": "drinks",
+      "name": "Drinks",
+      "items": [
+        {
+          "id": "alaskan-strawberry-soda",
+          "name": "Alaskan Strawberry Soda",
+          "priceCents": 300,
+          "purchasable": true
+        },
+        {
+          "id": "fountain-drink",
+          "name": "Fountain Drink",
+          "description": "Prototype baseline; individual fountain selections observed at $3.00.",
+          "priceCents": 300,
+          "purchasable": true
+        },
+        {
+          "id": "harborside-root-beer",
+          "name": "Harborside Root Beer",
+          "priceCents": 300,
+          "purchasable": true
+        },
+        {
+          "id": "water-bottle",
+          "name": "Water Bottle",
+          "priceCents": 200,
+          "purchasable": true
+        }
+      ]
+    }
+  ],
+  "observedAddOns": [
+    {
+      "id": "extra-fish",
+      "name": "Extra Fish",
+      "priceCents": 500,
+      "prototypeCartSupport": false
+    },
+    {
+      "id": "double-fries",
+      "name": "Double Your Fries",
+      "priceCents": 500,
+      "prototypeCartSupport": false
+    },
+    {
+      "id": "small-fries",
+      "name": "Fries — Small",
+      "priceCents": 200,
+      "prototypeCartSupport": false
+    }
+  ],
+  "freeSelections": [
+    "No Sauce",
+    "Tartar Sauce",
+    "Sriracha Mayo",
+    "Sweet Chili Sauce",
+    "Malt Vinegar",
+    "Ketchup"
+  ],
+  "observedLocationVariation": [
+    {
+      "itemId": "fresh-slaw",
+      "baselinePriceCents": 300,
+      "otherObservedPriceCents": 400,
+      "note": "A Great Falls, Montana ordering page showed $4.00."
+    },
+    {
+      "itemId": "cod-cakes",
+      "baselinePriceCents": 600,
+      "otherObservedPriceCents": 700,
+      "note": "A Reading, Pennsylvania ordering page showed $7.00."
+    }
+  ]
+}

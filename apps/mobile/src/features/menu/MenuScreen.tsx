@@ -7,6 +7,8 @@ import { colors, spacing } from "../../design/tokens";
 import { analytics } from "../../analytics/analytics";
 import { mobileEnvironment } from "../../config/environment";
 import { getMobileRepository } from "../../services/api/mockRepository";
+import { formatUsd } from "../../domain/money";
+import { useCart } from "../cart/CartProvider";
 
 type ImageKey = "fish-and-chips-plate" | "freshest-taste";
 const menuImages: Record<ImageKey, ReturnType<typeof require>> = {
@@ -16,6 +18,7 @@ const menuImages: Record<ImageKey, ReturnType<typeof require>> = {
 
 export function MenuScreen() {
   const repository = useMemo(() => getMobileRepository(mobileEnvironment.useMockData), []);
+  const { add, decrement, hydrated, lines } = useCart();
   const [content, setContent] = useState(menu);
   const [categoryId, setCategoryId] = useState(menu.categories[0].id);
   useEffect(() => {
@@ -63,10 +66,83 @@ export function MenuScreen() {
             />
           ) : null}
           <Text style={styles.itemName}>{item.name}</Text>
+          <Text style={styles.price}>{formatUsd(item.priceCents)}</Text>
           <Text style={styles.body}>{item.description}</Text>
+          {item.purchasable ? (
+            <MenuCartControl
+              hydrated={hydrated}
+              itemId={item.id}
+              itemName={item.name}
+              onAdd={() => add(item.id)}
+              onDecrement={() => decrement(item.id)}
+              quantity={lines.find(line => line.id === item.id)?.quantity ?? 0}
+            />
+          ) : (
+            <Text style={styles.unavailable}>Available for information only.</Text>
+          )}
         </Card>
       ))}
     </ScrollView>
+  );
+}
+
+function MenuCartControl({
+  hydrated,
+  itemId,
+  itemName,
+  onAdd,
+  onDecrement,
+  quantity
+}: {
+  hydrated: boolean;
+  itemId: string;
+  itemName: string;
+  onAdd: () => void;
+  onDecrement: () => void;
+  quantity: number;
+}) {
+  const disabled = !hydrated;
+  if (quantity === 0) {
+    return (
+      <Pressable
+        accessibilityLabel={`Add ${itemName} to cart`}
+        accessibilityRole="button"
+        accessibilityState={{ disabled }}
+        disabled={disabled}
+        onPress={onAdd}
+        style={[styles.addButton, disabled && styles.disabledButton]}
+        testID={`add-to-cart-${itemId}`}
+      >
+        <Text style={styles.addButtonText}>{disabled ? "Loading Cart…" : "Add to Cart"}</Text>
+      </Pressable>
+    );
+  }
+  return (
+    <View style={styles.stepper}>
+      <Pressable
+        accessibilityLabel={`Remove one ${itemName} from cart`}
+        accessibilityRole="button"
+        onPress={onDecrement}
+        style={styles.stepperButton}
+        testID={`decrement-cart-${itemId}`}
+      >
+        <Text style={styles.stepperButtonText}>−</Text>
+      </Pressable>
+      <Text accessibilityLiveRegion="polite" style={styles.quantity} testID={`cart-quantity-${itemId}`}>
+        {quantity} in cart
+      </Text>
+      <Pressable
+        accessibilityLabel={`Add one ${itemName} to cart`}
+        accessibilityRole="button"
+        accessibilityState={{ disabled: quantity >= 99 }}
+        disabled={quantity >= 99}
+        onPress={onAdd}
+        style={[styles.stepperButton, quantity >= 99 && styles.disabledButton]}
+        testID={`increment-cart-${itemId}`}
+      >
+        <Text style={styles.stepperButtonText}>+</Text>
+      </Pressable>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -89,5 +165,29 @@ const styles = StyleSheet.create({
   selectedTabText: { color: colors.white },
   card: { gap: spacing.compact },
   image: { borderRadius: 10, height: 150, width: "100%" },
-  itemName: { color: colors.ink, fontSize: 20, fontWeight: "800", lineHeight: 26 }
+  itemName: { color: colors.ink, fontSize: 20, fontWeight: "800", lineHeight: 26 },
+  price: { color: colors.brandBlue, fontSize: 18, fontWeight: "800", lineHeight: 24 },
+  unavailable: { color: colors.mutedInk, fontSize: 14, fontStyle: "italic" },
+  addButton: {
+    alignItems: "center",
+    alignSelf: "flex-start",
+    backgroundColor: colors.brandBlue,
+    borderRadius: 999,
+    justifyContent: "center",
+    minHeight: 44,
+    paddingHorizontal: spacing.standard
+  },
+  disabledButton: { opacity: 0.5 },
+  addButtonText: { color: colors.white, fontSize: 15, fontWeight: "800" },
+  stepper: { alignItems: "center", flexDirection: "row", gap: spacing.compact },
+  stepperButton: {
+    alignItems: "center",
+    backgroundColor: colors.brandBlue,
+    borderRadius: 22,
+    height: 44,
+    justifyContent: "center",
+    width: 44
+  },
+  stepperButtonText: { color: colors.white, fontSize: 24, fontWeight: "700", lineHeight: 28 },
+  quantity: { color: colors.ink, fontSize: 15, fontWeight: "800", minWidth: 74, textAlign: "center" }
 });
