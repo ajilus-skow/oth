@@ -32,10 +32,7 @@ const sections = [
   ["Secret-recipe beer batter", "Fresh American flavor in every hand-battered order.", images.photos.fishAndChipsEating]
 ] as const;
 export function AboutScreen() {
-  const repository = useMemo(
-    () => getMobileRepository(mobileEnvironment.useMockData),
-    []
-  );
+  const repository = useMemo(() => getMobileRepository(mobileEnvironment.useMockData), []);
   const [hero, setHero] = useState("Sea to table. Hook and line, one fish at a time.");
   useEffect(() => {
     analytics.track({ name: "about_viewed" });

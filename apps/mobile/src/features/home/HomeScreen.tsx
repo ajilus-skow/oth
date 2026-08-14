@@ -16,10 +16,7 @@ import { ResourceState } from "../../design/ResourceState";
 type Navigation = NativeStackNavigationProp<RootStackParams>;
 export function HomeScreen() {
   const navigation = useNavigation<Navigation>();
-  const repository = useMemo(
-    () => getMobileRepository(mobileEnvironment.useMockData),
-    []
-  );
+  const repository = useMemo(() => getMobileRepository(mobileEnvironment.useMockData), []);
   const [events, setEvents] = useState<TruckEvent[]>([]);
   const [hero, setHero] = useState({
     title: "Fresh, wild-caught fish and chips.",

@@ -28,10 +28,7 @@ export function FindUsScreen() {
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [showingSavedSchedule, setShowingSavedSchedule] = useState(false);
   const [states, setStates] = useState<ScheduleState[]>([]);
-  const repository = useMemo(
-    () => getMobileRepository(mobileEnvironment.useMockData),
-    []
-  );
+  const repository = useMemo(() => getMobileRepository(mobileEnvironment.useMockData), []);
 
   useEffect(() => {
     const controller = new AbortController();

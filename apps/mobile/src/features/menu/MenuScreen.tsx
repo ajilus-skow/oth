@@ -15,10 +15,7 @@ const menuImages: Record<ImageKey, ReturnType<typeof require>> = {
 };
 
 export function MenuScreen() {
-  const repository = useMemo(
-    () => getMobileRepository(mobileEnvironment.useMockData),
-    []
-  );
+  const repository = useMemo(() => getMobileRepository(mobileEnvironment.useMockData), []);
   const [content, setContent] = useState(menu);
   const [categoryId, setCategoryId] = useState(menu.categories[0].id);
   useEffect(() => {

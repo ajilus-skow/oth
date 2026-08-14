@@ -20,10 +20,7 @@ type Navigation = NativeStackNavigationProp<RootStackParams>;
 export function EventDetailScreen() {
   const navigation = useNavigation<Navigation>();
   const { params } = useRoute<RouteProp<RootStackParams, "EventDetail">>();
-  const repository = useMemo(
-    () => getMobileRepository(mobileEnvironment.useMockData),
-    []
-  );
+  const repository = useMemo(() => getMobileRepository(mobileEnvironment.useMockData), []);
   const [event, setEvent] = useState<TruckEvent | null>(null);
   const [failed, setFailed] = useState(false);
   const load = () => {
