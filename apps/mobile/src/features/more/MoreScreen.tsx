@@ -9,8 +9,8 @@ import { analytics } from "../../analytics/analytics";
 
 type Navigation = NativeStackNavigationProp<RootStackParams>;
 
-type MoreRow =
-  { label: string; route: Exclude<keyof RootStackParams, "Tabs" | "EventDetail"> } | { label: string; url: string };
+type MoreRoute = "About" | "Contact" | "NotificationSettings" | "LocationSettings";
+type MoreRow = { label: string; route: MoreRoute } | { label: string; url: string };
 
 export const moreRows: readonly MoreRow[] = [
   { label: "About On The Hook", route: "About" },

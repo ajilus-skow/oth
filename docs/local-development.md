@@ -14,7 +14,7 @@ make run-ios
 
 Linux hosts can edit TypeScript and run workspace validation. iOS work requires
 a Mac development machine for CocoaPods, Simulator, device, and Xcode work.
-Android development is currently paused.
+The native project currently targets iOS only.
 
 ## Remote iOS development machine
 

@@ -1,13 +1,11 @@
 # On The Hook Mobile App Implementation Package
 
-This package is a build handoff for a polished React Native customer app for On The Hook Fish & Chips, targeting iOS and Android from one codebase.
+This package is a build handoff for a polished iOS React Native customer app for On The Hook Fish & Chips.
 
 ## Current platform scope
 
-The iOS application is the active delivery target. Android work is paused, so
-Android-specific implementation, validation, and release requirements in this
-handoff are deferred until that work resumes. Shared TypeScript should remain
-portable, but no Android native project is currently maintained.
+The iOS application is the active delivery target. Native implementation,
+validation, and release requirements in this handoff apply to iOS only.
 
 ## Product scope
 

@@ -61,7 +61,7 @@ Use a bold condensed/display face only if the official brand font is licensed an
 
 - Yellow or white top region depending on screen context.
 - Bottom tab bar is native-feeling, safe-area aware, and uses blue for selected state.
-- Use SF Symbols-compatible semantic icons on iOS and equivalent Material-style symbols on Android, behind a shared icon abstraction.
+- Use SF Symbols-compatible semantic icons on iOS behind a small shared icon abstraction.
 - Avoid decorative shadows everywhere; use subtle borders/elevation only to separate interactive cards from background.
 
 ## Home

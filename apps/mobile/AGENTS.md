@@ -29,13 +29,14 @@ These rules apply to `apps/mobile/`.
   linking behind small native adapters.
 - Keep `ios/` changes limited to native configuration, native modules, or
   package auto-linking. The app bundle identifier is `com.ajilus.oth`.
-- The native project is iOS-only. Android work is paused; keep shared
-  TypeScript platform-neutral for a future Android target without adding or
-  changing Android native files until that work resumes.
+- The native project is iOS-only. Keep TypeScript aligned with the current iOS
+  application architecture; do not add or change unsupported native targets.
 - Use `StyleSheet` and safe-area-aware layouts. Preserve iOS accessibility
   labels, 44-point minimum tap targets, Dynamic Type support, and stable
   `testID` values for interactive controls.
 - Keep feature behavior in TypeScript and native bootstrapping in iOS Swift.
+- Detox is the exclusive mobile E2E runner. Use stable `testID` values for
+  automated controls and do not add a second mobile E2E framework.
 - iOS builds, Simulator runs, and CocoaPods require macOS with Xcode. From
   Linux, read `docs/local-development.md#remote-ios-development-machine`, run
   `make ios-remote-doctor` first, then use the configured `ajilus-air.local`

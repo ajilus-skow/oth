@@ -23,6 +23,7 @@ import { cartCatalog } from "./menuCatalog";
 type CartContextValue = {
   add(menuItemId: string): void;
   clear(): void;
+  clearAndPersist(): Promise<void>;
   decrement(menuItemId: string): void;
   hydrated: boolean;
   lines: CartLine[];
@@ -49,6 +50,7 @@ export function CartProvider({
   const [state, dispatch] = useReducer(cartReducer, emptyCartState);
   const [storageError, setStorageError] = useState<string | null>(null);
   const writes = useRef(Promise.resolve());
+  const skipNextEmptyPersistence = useRef(false);
 
   useEffect(() => {
     let active = true;
@@ -71,6 +73,10 @@ export function CartProvider({
   useEffect(() => {
     if (!state.hydrated) return;
     const quantities = state.quantities;
+    if (Object.keys(quantities).length === 0 && skipNextEmptyPersistence.current) {
+      skipNextEmptyPersistence.current = false;
+      return;
+    }
     writes.current = writes.current
       .then(async () => {
         if (Object.keys(quantities).length === 0) await persistence.clear();
@@ -84,6 +90,15 @@ export function CartProvider({
     () => ({
       add: menuItemId => dispatch({ menuItemId, type: "add" }),
       clear: () => dispatch({ type: "clear" }),
+      clearAndPersist: () => {
+        skipNextEmptyPersistence.current = true;
+        dispatch({ type: "clear" });
+        writes.current = writes.current
+          .then(() => persistence.clear())
+          .then(() => setStorageError(current => (current?.includes("could not be saved") ? null : current)))
+          .catch(() => setStorageError("Your cart is available for this session, but it could not be saved."));
+        return writes.current;
+      },
       decrement: menuItemId => dispatch({ menuItemId, type: "decrement" }),
       hydrated: state.hydrated,
       lines: cartLines(state, cartCatalog),
@@ -93,7 +108,7 @@ export function CartProvider({
       subtotalCents: subtotalCents(state, cartCatalog),
       totalUnitCount: totalUnitCount(state)
     }),
-    [state, storageError]
+    [persistence, state, storageError]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

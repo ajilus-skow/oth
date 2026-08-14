@@ -41,12 +41,12 @@ Use the release-selected bundled production content and verify:
 
 ## Required E2E scenarios
 
-The critical suite is implemented as platform-neutral React Native integration
+The critical suite is implemented as React Native integration
 tests in `apps/mobile/src/features/backendFreeFlows.integration.test.tsx`, so it
 does not start or expect a backend, staging service, mock HTTP server, website
-scraper, or server-driven push provider. Run it on every available platform
-runner. The current iOS simulator build is validated through the configured
-remote macOS workflow; Android native work and its emulator runner are paused.
+scraper, or server-driven push provider. Run it on the available iOS runner.
+The current iOS simulator build is validated through the configured
+remote macOS workflow.
 
 1. **Find by search**
    - launch
@@ -89,6 +89,16 @@ remote macOS workflow; Android native work and its emulator runner are paused.
    - Jobs, Store, Franchise, Privacy, Terms invoke expected HTTPS URLs
    - Contact invokes correct `mailto:` and `tel:` actions
 
+8. **Local Menu cart prototype**
+   - run `npm run test:e2e -w @ajilus/oth` with networking disabled
+   - add two priced bundled items, edit quantity, verify badge and subtotal,
+     submit, verify the no-transmission confirmation, then confirm clearing
+     survives a cold relaunch
+   - the Detox suite also confirms a pre-submit cart restores from local
+     versioned storage
+   - these iOS flows require Detox and a provisioned iOS target; no HTTP
+     mock, API, or ordering-provider page is allowed
+
 ## Accessibility
 
 Automate where tooling permits, then manually verify:
@@ -128,8 +138,6 @@ Reference widths:
 - 320 pt narrow iPhone
 - 393 pt mainstream iPhone
 - 430 pt large iPhone
-- small Android ~360 dp
-- mainstream Android ~412 dp
 
 Verify both light appearance and any platform system settings that affect text contrast. The branded app may remain light-first; do not create an unreviewed dark theme merely because the OS is dark.
 
@@ -145,9 +153,8 @@ Verify both light appearance and any platform system settings that affect text c
 ## Release gate
 
 - typecheck/lint/tests pass
-- backend-free critical flows pass on every available platform runner
+- backend-free critical flows pass on the available iOS runner
 - iOS simulator build artifact passes the remote macOS workflow
-- Android validation is deferred while Android native work is paused
 - packaged app icon assets are present
 - privacy disclosures match actual location/push behavior
-- App Store/Play Store screenshots and metadata reviewed
+- App Store screenshots and metadata reviewed

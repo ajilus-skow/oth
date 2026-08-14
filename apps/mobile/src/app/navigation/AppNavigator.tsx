@@ -1,7 +1,12 @@
-import { NavigationContainer, type LinkingOptions } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  useNavigation,
+  type LinkingOptions,
+  type NavigatorScreenParams
+} from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet, Text, View } from "react-native";
+import { createNativeStackNavigator, type NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { PrimaryButton, SectionHeader } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
@@ -15,14 +20,20 @@ import { AboutScreen } from "../../features/about/AboutScreen";
 import { HomeScreen } from "../../features/home/HomeScreen";
 import { EventDetailScreen } from "../../features/locations/EventDetailScreen";
 import { analytics } from "../../analytics/analytics";
+import { CartScreen } from "../../features/cart/CartScreen";
+import { OrderConfirmationScreen } from "../../features/cart/OrderConfirmationScreen";
+import { useCart } from "../../features/cart/CartProvider";
+import type { LocalOrderReceipt } from "../../features/cart/orderSubmission";
 
 export type RootStackParams = {
-  Tabs: undefined;
+  Tabs: NavigatorScreenParams<TabParams> | undefined;
   About: undefined;
   EventDetail: { eventId: string };
   Contact: undefined;
   NotificationSettings: undefined;
   LocationSettings: undefined;
+  Cart: undefined;
+  OrderConfirmation: { receipt: LocalOrderReceipt };
 };
 
 type TabParams = { Home: undefined; FindUs: undefined; Menu: undefined; More: undefined };
@@ -59,16 +70,43 @@ function TabNavigator() {
         // Keep the compact native header within its fixed safe-area height at
         // Accessibility text sizes. Screen content remains Dynamic Type aware.
         headerTitleAllowFontScaling: false,
+        headerRight: () => <CartButton />,
         tabBarActiveTintColor: colors.brandBlue,
         tabBarInactiveTintColor: colors.mutedInk,
         tabBarIcon: ({ color }) => <FishHookIcon color={color} />
       }}
     >
-      <Tabs.Screen name="Home" component={HomeScreen} options={{ title: "Home" }} />
-      <Tabs.Screen name="FindUs" component={FindUsScreen} options={{ title: "Find Us" }} />
-      <Tabs.Screen name="Menu" component={MenuScreen} options={{ title: "Menu" }} />
-      <Tabs.Screen name="More" component={MoreScreen} />
+      <Tabs.Screen name="Home" component={HomeScreen} options={{ tabBarButtonTestID: "tab-home", title: "Home" }} />
+      <Tabs.Screen
+        name="FindUs"
+        component={FindUsScreen}
+        options={{ tabBarButtonTestID: "tab-find-us", title: "Find Us" }}
+      />
+      <Tabs.Screen name="Menu" component={MenuScreen} options={{ tabBarButtonTestID: "tab-menu", title: "Menu" }} />
+      <Tabs.Screen name="More" component={MoreScreen} options={{ tabBarButtonTestID: "tab-more" }} />
     </Tabs.Navigator>
+  );
+}
+
+export function CartButton() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
+  const { totalUnitCount } = useCart();
+  const badge = totalUnitCount > 99 ? "99+" : String(totalUnitCount);
+  return (
+    <Pressable
+      accessibilityLabel={totalUnitCount ? `Cart, ${totalUnitCount} items` : "Cart"}
+      accessibilityRole="button"
+      onPress={() => navigation.navigate("Cart")}
+      style={styles.cartButton}
+      testID="cart-button"
+    >
+      <Text style={styles.cartIcon}>Cart</Text>
+      {totalUnitCount ? (
+        <Text style={styles.badge} testID="cart-badge">
+          {badge}
+        </Text>
+      ) : null}
+    </Pressable>
   );
 }
 
@@ -103,6 +141,12 @@ export function AppNavigator() {
         <Stack.Screen name="Contact" component={ContactScreen} options={{ title: "Contact Us" }} />
         <Stack.Screen name="NotificationSettings" component={NotificationSetupScreen} options={{ title: "Alerts" }} />
         <Stack.Screen name="LocationSettings" component={LocationSettingsScreen} />
+        <Stack.Screen name="Cart" component={CartScreen} options={{ title: "Your Cart" }} />
+        <Stack.Screen
+          name="OrderConfirmation"
+          component={OrderConfirmationScreen}
+          options={{ gestureEnabled: false, headerBackVisible: false, title: "Confirmation" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -110,5 +154,19 @@ export function AppNavigator() {
 
 const styles = StyleSheet.create({
   placeholder: { flex: 1, gap: spacing.standard, justifyContent: "center", padding: spacing.screen },
-  body: { color: colors.mutedInk, fontSize: 16 }
+  body: { color: colors.mutedInk, fontSize: 16 },
+  cartButton: { alignItems: "center", flexDirection: "row", minHeight: 44, paddingHorizontal: spacing.compact },
+  cartIcon: { color: colors.brandBlue, fontSize: 15, fontWeight: "800" },
+  badge: {
+    backgroundColor: colors.brandBlue,
+    borderRadius: 10,
+    color: colors.white,
+    fontSize: 12,
+    fontWeight: "900",
+    marginLeft: 4,
+    minWidth: 20,
+    overflow: "hidden",
+    paddingHorizontal: 4,
+    textAlign: "center"
+  }
 });

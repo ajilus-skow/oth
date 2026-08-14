@@ -18,7 +18,7 @@ const menuImages: Record<ImageKey, ReturnType<typeof require>> = {
 
 export function MenuScreen() {
   const repository = useMemo(() => getMobileRepository(mobileEnvironment.useMockData), []);
-  const { add, decrement, hydrated, lines } = useCart();
+  const { add, decrement, hydrated, lines, storageError } = useCart();
   const [content, setContent] = useState(menu);
   const [categoryId, setCategoryId] = useState(menu.categories[0].id);
   useEffect(() => {
@@ -39,6 +39,11 @@ export function MenuScreen() {
         Menu
       </Text>
       <Text style={styles.body}>Made fresh at the truck. Availability can vary by location.</Text>
+      {storageError ? (
+        <Text accessibilityRole="alert" style={styles.storageNotice}>
+          {storageError}
+        </Text>
+      ) : null}
       <View accessibilityRole="tablist" style={styles.tabs}>
         {content.categories.map(item => (
           <Pressable
@@ -150,6 +155,7 @@ const styles = StyleSheet.create({
   content: { gap: spacing.standard, padding: spacing.screen },
   title: { color: colors.ink, fontSize: 30, fontWeight: "800", lineHeight: 36 },
   body: { color: colors.mutedInk, fontSize: 16, lineHeight: 23 },
+  storageNotice: { color: colors.danger, fontSize: 15, fontWeight: "700", lineHeight: 22 },
   tabs: { flexDirection: "row", gap: spacing.compact },
   tab: {
     alignItems: "center",

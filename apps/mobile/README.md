@@ -1,8 +1,8 @@
 # OTH iOS app
 
 Bare React Native TypeScript application for iOS. Its native target and module
-name are `oth`; the bundle identifier is `com.ajilus.oth`. Android work is
-paused.
+name are `oth`; the bundle identifier is `com.ajilus.oth`. The current native
+target is iOS only.
 
 ```bash
 npm install
@@ -41,10 +41,45 @@ redistribute the app for the new schedule to reach customers.
 Directions hand off to the device's maps app using the bundled formatted address.
 Calendar event creation is local-device functionality based on the bundled date,
 hours, venue, and address, and requests access only after the customer taps Add
-to Calendar. Notifications are local-device
-onboarding/preferences only—there is no server-driven push service in this
-release. Ordering is an external handoff only when the schedule supplies an
-explicit safe URL; never infer one from an `orderNow` flag.
+to Calendar. Notifications are local-device onboarding/preferences only—there
+is no server-driven push service in this release. Event-detail ordering remains
+an external handoff only when the schedule supplies an explicit safe URL; never
+infer one from an `orderNow` flag.
+
+## Local Menu cart prototype
+
+The Menu cart is entirely on-device and works with networking disabled.
+Purchasable products and baseline prices come from bundled
+`src/content/menu.json`; prices are integer cents and are formatted only for
+display. Cart intent is persisted as versioned `oth.cart.v1` data containing
+only product IDs, quantities, and an update timestamp. The current bundled
+Menu resolves names and prices at display time, so stale saved prices are never
+used.
+
+**Submit Order does not place a restaurant order.** It snapshots a local
+confirmation receipt, clears the live and persisted cart, and shows an explicit
+no-transmission notice. There is no account, store selection, tax, tip,
+payment, promo, backend order, kitchen transmission, fulfillment, order
+history, status tracking, or provider integration. A future real implementation
+would replace `LocalOrderSubmissionService` behind the
+`OrderSubmissionService` interface without changing Menu or Cart UI.
+
+Run the local cart unit and component coverage with:
+
+```bash
+npm test -w @ajilus/oth -- --runInBand
+```
+
+The iOS offline acceptance flows use Detox and are in `e2e/cart.e2e.js`. On a
+provisioned iOS Simulator, run:
+
+```bash
+npm run test:e2e -w @ajilus/oth
+```
+
+They require no API, ordering provider, or network connection. This Linux
+checkout cannot run an iOS Simulator; execution uses the configured
+remote macOS workflow.
 
 `src/fixtures/` is reserved for deterministic development and test data. It may
 only be enabled during development with `OTH_USE_MOCK_DATA=1`; release
