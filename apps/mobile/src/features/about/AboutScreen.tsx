@@ -33,7 +33,7 @@ const sections = [
 ] as const;
 export function AboutScreen() {
   const repository = useMemo(
-    () => getMobileRepository(mobileEnvironment.useMockData, mobileEnvironment.apiBaseUrl),
+    () => getMobileRepository(mobileEnvironment.useMockData),
     []
   );
   const [hero, setHero] = useState("Sea to table. Hook and line, one fish at a time.");

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RouteProp } from "@react-navigation/native";
@@ -12,6 +12,8 @@ import { mobileEnvironment } from "../../config/environment";
 import { getMobileRepository } from "../../services/api/mockRepository";
 import { openDirections } from "../../services/linking/directions";
 import { openExternalUrl, validateExternalUrl } from "../../services/linking/externalLinks";
+import { addCalendarEvent } from "../../services/calendar/nativeCalendar";
+import { calendarEventFromTruckVisit } from "../../services/calendar/calendarEvent";
 import { formatEventTime } from "./selectEvents";
 import { analytics } from "../../analytics/analytics";
 type Navigation = NativeStackNavigationProp<RootStackParams>;
@@ -19,7 +21,7 @@ export function EventDetailScreen() {
   const navigation = useNavigation<Navigation>();
   const { params } = useRoute<RouteProp<RootStackParams, "EventDetail">>();
   const repository = useMemo(
-    () => getMobileRepository(mobileEnvironment.useMockData, mobileEnvironment.apiBaseUrl),
+    () => getMobileRepository(mobileEnvironment.useMockData),
     []
   );
   const [event, setEvent] = useState<TruckEvent | null>(null);
@@ -34,14 +36,30 @@ export function EventDetailScreen() {
   useEffect(load, [params.eventId, repository]);
   if (failed) return <ResourceState kind="error" onRetry={load} />;
   if (!event) return <ResourceState kind="loading" />;
-  const active = event.status !== "canceled";
-  const orderUrl = event.orderUrl;
-  const eventId = event.eventId;
+  const currentEvent = event;
+  const active = currentEvent.status !== "canceled";
+  const orderUrl = currentEvent.orderUrl;
+  const eventId = currentEvent.eventId;
   async function order() {
     if (!orderUrl) return;
     analytics.track({ name: "order_external_tapped", properties: { eventId } });
     const result = await openExternalUrl(orderUrl, "web");
     if (!result.ok) Alert.alert("Ordering unavailable", result.message);
+  }
+  async function addToCalendar() {
+    try {
+      await addCalendarEvent(calendarEventFromTruckVisit(currentEvent));
+      Alert.alert("Added to Calendar", "This truck visit is now on your calendar.");
+    } catch (error) {
+      Alert.alert(
+        "Calendar unavailable",
+        error instanceof Error ? error.message : "We couldn’t add this visit to your calendar.",
+        [
+          { text: "Cancel", style: "cancel" },
+          { text: "Open Settings", onPress: () => void Linking.openSettings() }
+        ]
+      );
+    }
   }
   return (
     <ScrollView contentContainerStyle={styles.content} style={styles.screen}>
@@ -69,7 +87,8 @@ export function EventDetailScreen() {
           </PrimaryButton>
           <Pressable
             accessibilityRole="button"
-            onPress={() => Alert.alert("Calendar", "Calendar support will be available in a future update.")}
+            accessibilityLabel="Add to Calendar"
+            onPress={() => void addToCalendar()}
           >
             <Text style={styles.link}>Add to Calendar</Text>
           </Pressable>

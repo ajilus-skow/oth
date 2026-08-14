@@ -1,0 +1,20 @@
+---
+description: On The Hook React Native mobile implementation rules
+globs: "**/*.{ts,tsx,js,jsx,json,swift,m,mm,kt,java,gradle,plist,xml}"
+alwaysApply: true
+---
+
+Follow `AGENTS.md` and every specification under `specs/`.
+
+Critical constraints:
+- React Native native UI; never a WebView wrapper.
+- iOS is the active target. Keep shared code portable, but Android work is
+  paused and Android native files must not be added or changed until resumed.
+- Never implement or crawl the ordering vendor flow. `orderUrl` is opaque and external.
+- Never scrape website HTML at runtime; consume structured first-party JSON.
+- Location permission is optional and must have search fallback.
+- Explain notification value before asking OS permission.
+- No v1 account, loyalty, cart, checkout, or payment features.
+- Do not invent brand colors/content if packaged or API-provided values exist.
+- Use official logo art when present; reference logo is not a release asset.
+- Every bead's acceptance criteria must be implemented and tested before closing the bead.

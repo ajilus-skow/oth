@@ -29,7 +29,7 @@ export function FindUsScreen() {
   const [showingSavedSchedule, setShowingSavedSchedule] = useState(false);
   const [states, setStates] = useState<ScheduleState[]>([]);
   const repository = useMemo(
-    () => getMobileRepository(mobileEnvironment.useMockData, mobileEnvironment.apiBaseUrl),
+    () => getMobileRepository(mobileEnvironment.useMockData),
     []
   );
 
@@ -174,7 +174,7 @@ export function FindUsScreen() {
       ListEmptyComponent={
         !refreshing ? (
           <StatusMessage title="No truck visits found" body="Try another city, state, ZIP, or date." />
-        ) : null
+        ) : undefined
       }
     />
   );

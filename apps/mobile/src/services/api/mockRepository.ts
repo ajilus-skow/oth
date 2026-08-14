@@ -1,8 +1,9 @@
 import bootstrap from "../../content/bootstrap.json";
 import menu from "../../content/menu.json";
 import { type EventPage } from "../../domain/models";
-import { type AboutPage, createMobileApiRepository, type MobileApiRepository } from "./httpRepository";
+import { type AboutPage, type MobileApiRepository } from "./httpRepository";
 import { fakeScheduleService, type ScheduleQuery } from "./fakeScheduleService";
+import { bundledScheduleService } from "./bundledScheduleService";
 
 export type MobileRepository = MobileApiRepository & {
   bootstrap: () => Promise<typeof bootstrap>;
@@ -27,35 +28,17 @@ export const mockRepository: MobileRepository = {
   sourceFor: () => "test"
 };
 
-const unavailableSchedule = () => Promise.reject(new Error("Truck schedule is unavailable."));
-
 export const bundledProductionRepository: MobileApiRepository = {
   bootstrap: async () => bootstrap,
   menu: async () => menu,
   about: async () => mockAbout,
-  states: async () => [],
-  events: unavailableSchedule,
+  states: () => bundledScheduleService.states(),
+  events: query => bundledScheduleService.events(query),
   lastUpdatedAt: async () => null,
-  sourceFor: resource => (resource === "events" || resource === "states" ? "unavailable" : "bundled")
+  sourceFor: () => "bundled"
 };
 
-function withOptionalRemote(baseUrl: string): MobileApiRepository {
-  const remote = createMobileApiRepository(baseUrl);
-  return {
-    bootstrap: async () => remote.bootstrap().catch(() => bundledProductionRepository.bootstrap()),
-    menu: async () => remote.menu().catch(() => bundledProductionRepository.menu()),
-    about: async () => remote.about().catch(() => bundledProductionRepository.about()),
-    states: () => remote.states(),
-    events: (query, signal) => remote.events(query, signal),
-    lastUpdatedAt: resource => remote.lastUpdatedAt(resource),
-    sourceFor: resource => {
-      const source = remote.sourceFor(resource);
-      return source === "unavailable" && ["bootstrap", "menu", "about"].includes(resource) ? "bundled" : source;
-    }
-  };
-}
-
-export function getMobileRepository(mockEnabled: boolean, apiBaseUrl?: string): MobileApiRepository {
+export function getMobileRepository(mockEnabled: boolean): MobileApiRepository {
   if (mockEnabled) return mockRepository;
-  return apiBaseUrl ? withOptionalRemote(apiBaseUrl) : bundledProductionRepository;
+  return bundledProductionRepository;
 }

@@ -31,25 +31,27 @@ Cover all reusable components in important states:
 
 ### Integration
 
-Mock the first-party mobile API and verify:
+Use the release-selected bundled production content and verify:
 
-- Home shows nearest upcoming event set
-- Find Us search + filter + pagination
-- map/list selection synchronization
-- event detail and conditional Order Food action
-- Add to Calendar payload
-- Menu and About remote-content fallback behavior
-- push registration/preferences requests
-- cached schedule survives network loss
+- Home, Menu, About, More, and Contact render with no API base URL
+- Find Us manual search/filter reaches a known bundled event
+- Event Detail exposes directions and calendar mapping from bundled data
+- Order Food is omitted when an event has no explicit safe order URL
+- notification onboarding requests permission only after an explicit tap
 
 ## Required E2E scenarios
 
-Run on at least one current iOS simulator and one current Android emulator in CI/nightly or release gating.
+The critical suite is implemented as platform-neutral React Native integration
+tests in `apps/mobile/src/features/backendFreeFlows.integration.test.tsx`, so it
+does not start or expect a backend, staging service, mock HTTP server, website
+scraper, or server-driven push provider. Run it on every available platform
+runner. The current iOS simulator build is validated through the configured
+remote macOS workflow; Android native work and its emulator runner are paused.
 
 1. **Find by search**
    - launch
    - open Find Us
-   - type `West Des Moines, IA`
+   - type `Johnstown`
    - open event
    - verify address/time
    - tap Directions and assert correct external linking intent
@@ -60,11 +62,10 @@ Run on at least one current iOS simulator and one current Android emulator in CI
    - search manually
    - event list remains functional
 
-3. **Order handoff**
-   - open event with `orderUrl`
-   - tap Order Food
-   - assert only an external-link invocation occurred
-   - do not automate or inspect vendor destination
+3. **Safe order boundary**
+   - open a bundled event with `actionsAvailable.orderNow` but no explicit URL
+   - assert Order Food is absent
+   - do not infer or inspect a vendor destination
 
 4. **Menu**
    - switch Entrees/Sides/Drinks
@@ -78,11 +79,11 @@ Run on at least one current iOS simulator and one current Android emulator in CI
    - assert OS prompt occurs only after explicit tap
    - handle granted and denied variants
 
-6. **Offline cache**
-   - seed successful events response
-   - disable network
-   - relaunch
-   - show cached data with stale/last-updated indicator
+6. **Calendar handoff**
+   - open a bundled event
+   - tap Add to Calendar
+   - assert the local event payload contains its date, hours, venue, and address
+   - verify denied access offers Settings recovery
 
 7. **External destinations**
    - Jobs, Store, Franchise, Privacy, Terms invoke expected HTTPS URLs
@@ -124,9 +125,9 @@ Verify both light appearance and any platform system settings that affect text c
 ## Release gate
 
 - typecheck/lint/tests pass
-- E2E critical flows pass iOS + Android
-- official production logo replaces reference logo
-- production API base URL configured
-- APNs + FCM production credentials configured outside source control
+- backend-free critical flows pass on every available platform runner
+- iOS simulator build artifact passes the remote macOS workflow
+- Android validation is deferred while Android native work is paused
+- packaged app icon assets are present
 - privacy disclosures match actual location/push behavior
 - App Store/Play Store screenshots and metadata reviewed

@@ -17,7 +17,7 @@ type Navigation = NativeStackNavigationProp<RootStackParams>;
 export function HomeScreen() {
   const navigation = useNavigation<Navigation>();
   const repository = useMemo(
-    () => getMobileRepository(mobileEnvironment.useMockData, mobileEnvironment.apiBaseUrl),
+    () => getMobileRepository(mobileEnvironment.useMockData),
     []
   );
   const [events, setEvents] = useState<TruckEvent[]>([]);
@@ -51,7 +51,9 @@ export function HomeScreen() {
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
       <ImageBackground source={images.photos.truckSide} style={styles.hero} imageStyle={styles.heroImage}>
         <View style={styles.scrim}>
-          <OfficialWordmark accessibilityLabel="On The Hook" accessibilityRole="image" height={88} width={160} />
+          <View style={styles.wordmark}>
+            <OfficialWordmark accessibilityLabel="On The Hook" accessibilityRole="image" height={88} width={160} />
+          </View>
           <Text accessibilityRole="header" style={styles.heroTitle}>
             {hero.title}
           </Text>
@@ -127,6 +129,7 @@ const styles = StyleSheet.create({
   hero: { height: 350, justifyContent: "flex-end" },
   heroImage: { resizeMode: "cover" },
   scrim: { backgroundColor: "rgba(0,0,0,0.45)", gap: spacing.standard, padding: spacing.screen },
+  wordmark: { alignItems: "center" },
   heroTitle: { color: colors.white, fontSize: 30, fontWeight: "800", lineHeight: 36 },
   heroText: { color: colors.white, fontSize: 16, lineHeight: 23 },
   heading: {

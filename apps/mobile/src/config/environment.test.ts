@@ -1,5 +1,5 @@
 import { mobileEnvironment } from "./environment";
 
-test("centralizes the optional API base URL", () => {
-  expect(Object.keys(mobileEnvironment)).toEqual(["apiBaseUrl", "useMockData"]);
+test("exposes only the development fixture switch", () => {
+  expect(Object.keys(mobileEnvironment)).toEqual(["useMockData"]);
 });
