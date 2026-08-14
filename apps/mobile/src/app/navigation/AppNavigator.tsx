@@ -13,6 +13,7 @@ import { MenuScreen } from "../../features/menu/MenuScreen";
 import { AboutScreen } from "../../features/about/AboutScreen";
 import { HomeScreen } from "../../features/home/HomeScreen";
 import { EventDetailScreen } from "../../features/locations/EventDetailScreen";
+import { analytics } from "../../analytics/analytics";
 
 export type RootStackParams = {
   Tabs: undefined;
@@ -64,7 +65,12 @@ function TabNavigator() {
 
 export function AppNavigator() {
   return (
-    <NavigationContainer linking={linking}>
+    <NavigationContainer
+      linking={linking}
+      onStateChange={state =>
+        analytics.track({ name: "navigation_changed", properties: { screen: state?.routes.at(-1)?.name ?? "unknown" } })
+      }
+    >
       <Stack.Navigator>
         <Stack.Screen name="Tabs" component={TabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="About" component={AboutScreen} options={{ title: "About On The Hook" }} />

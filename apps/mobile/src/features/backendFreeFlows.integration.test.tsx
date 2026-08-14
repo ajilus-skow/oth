@@ -15,11 +15,18 @@ jest.mock("../config/environment", () => ({
 }));
 jest.mock("../services/notifications/notificationPreferences", () => ({
   defaultNotificationPreferences: { homeArea: "", scheduledNearby: true, dayBefore: true, morningOf: false },
+  currentNotificationPermission: async () => "granted",
   loadNotificationPreferences: async () => ({ homeArea: "", scheduledNearby: true, dayBefore: true, morningOf: false }),
   normalizeHomeArea: (value: string) => (value === "Johnstown, CO" ? value : null),
   openNotificationSettings: jest.fn(),
   requestNotificationPermission: (...args: unknown[]) => mockRequestNotificationPermission(...args),
   saveNotificationPreferences: (...args: unknown[]) => mockSaveNotificationPreferences(...args)
+}));
+jest.mock("../services/notifications/localReminders", () => ({
+  hasLocalReminder: async () => false,
+  localRemindersSupported: () => false,
+  scheduleLocalReminder: jest.fn(),
+  cancelLocalReminder: jest.fn()
 }));
 jest.mock("../services/linking/directions", () => ({
   openDirections: (...args: unknown[]) => mockOpenDirections(...args)

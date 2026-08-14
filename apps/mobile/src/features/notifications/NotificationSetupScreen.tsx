@@ -4,6 +4,7 @@ import { PrimaryButton, StatusMessage } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
 import {
   defaultNotificationPreferences,
+  currentNotificationPermission,
   loadNotificationPreferences,
   normalizeHomeArea,
   openNotificationSettings,
@@ -27,6 +28,7 @@ export function NotificationSetupScreen() {
 
   useEffect(() => {
     void loadNotificationPreferences().then(setPreferences);
+    void currentNotificationPermission().then(setPermission);
   }, []);
 
   async function enableAlerts() {
@@ -58,7 +60,9 @@ export function NotificationSetupScreen() {
       <Text accessibilityRole="header" style={styles.title}>
         Never miss the truck.
       </Text>
-      <Text style={styles.body}>Tell us where you’d like to hear about On The Hook visits.</Text>
+      <Text style={styles.body}>
+        Set local reminders for visits you choose. Alerts do not include live schedule updates.
+      </Text>
       <Text style={styles.label}>Home area</Text>
       <TextInput
         accessibilityLabel="Home area, city and state or ZIP"
@@ -81,20 +85,22 @@ export function NotificationSetupScreen() {
           </View>
         ))}
       </View>
-      <PrimaryButton accessibilityLabel="Enable alerts" onPress={() => void enableAlerts()}>
-        Enable Alerts
-      </PrimaryButton>
-      {message ? (
-        <StatusMessage body={message} title={permission === "granted" ? "Alerts enabled" : "Alert preferences saved"} />
-      ) : null}
       {permission === "denied" ? (
         <Pressable
           accessibilityRole="button"
+          accessibilityLabel="Open notification settings"
           onPress={() => void openNotificationSettings()}
           style={styles.settingsButton}
         >
           <Text style={styles.settingsText}>Open Notification Settings</Text>
         </Pressable>
+      ) : (
+        <PrimaryButton accessibilityLabel="Enable alerts" onPress={() => void enableAlerts()}>
+          Enable Alerts
+        </PrimaryButton>
+      )}
+      {message ? (
+        <StatusMessage body={message} title={permission === "granted" ? "Alerts enabled" : "Alert preferences saved"} />
       ) : null}
     </ScrollView>
   );

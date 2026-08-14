@@ -16,6 +16,12 @@ import { addCalendarEvent } from "../../services/calendar/nativeCalendar";
 import { calendarEventFromTruckVisit } from "../../services/calendar/calendarEvent";
 import { formatEventTime } from "./selectEvents";
 import { analytics } from "../../analytics/analytics";
+import {
+  cancelLocalReminder,
+  hasLocalReminder,
+  localRemindersSupported,
+  scheduleLocalReminder
+} from "../../services/notifications/localReminders";
 type Navigation = NativeStackNavigationProp<RootStackParams>;
 export function EventDetailScreen() {
   const navigation = useNavigation<Navigation>();
@@ -23,6 +29,7 @@ export function EventDetailScreen() {
   const repository = useMemo(() => getMobileRepository(mobileEnvironment.useMockData), []);
   const [event, setEvent] = useState<TruckEvent | null>(null);
   const [failed, setFailed] = useState(false);
+  const [hasReminder, setHasReminder] = useState(false);
   const load = () => {
     setFailed(false);
     void repository
@@ -31,6 +38,9 @@ export function EventDetailScreen() {
       .catch(() => setFailed(true));
   };
   useEffect(load, [params.eventId, repository]);
+  useEffect(() => {
+    void hasLocalReminder(params.eventId).then(setHasReminder);
+  }, [params.eventId]);
   if (failed) return <ResourceState kind="error" onRetry={load} />;
   if (!event) return <ResourceState kind="loading" />;
   const currentEvent = event;
@@ -46,6 +56,7 @@ export function EventDetailScreen() {
   async function addToCalendar() {
     try {
       await addCalendarEvent(calendarEventFromTruckVisit(currentEvent));
+      analytics.track({ name: "calendar_added", properties: { eventId } });
       Alert.alert("Added to Calendar", "This truck visit is now on your calendar.");
     } catch (error) {
       Alert.alert(
@@ -56,6 +67,15 @@ export function EventDetailScreen() {
           { text: "Open Settings", onPress: () => void Linking.openSettings() }
         ]
       );
+    }
+  }
+  async function toggleReminder() {
+    try {
+      if (hasReminder) await cancelLocalReminder(currentEvent.eventId);
+      else await scheduleLocalReminder(currentEvent);
+      setHasReminder(value => !value);
+    } catch (error) {
+      Alert.alert("Reminder unavailable", error instanceof Error ? error.message : "We couldn’t update this reminder.");
     }
   }
   return (
@@ -89,6 +109,15 @@ export function EventDetailScreen() {
           >
             <Text style={styles.link}>Add to Calendar</Text>
           </Pressable>
+          {localRemindersSupported() ? (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={hasReminder ? "Remove visit reminder" : "Set visit reminder"}
+              onPress={() => void toggleReminder()}
+            >
+              <Text style={styles.link}>{hasReminder ? "Remove Reminder" : "Set Reminder"}</Text>
+            </Pressable>
+          ) : null}
           {event.orderUrl && validateExternalUrl(event.orderUrl, "web") ? (
             <Pressable accessibilityRole="button" onPress={() => void order()}>
               <Text style={styles.link}>Order Food ↗</Text>

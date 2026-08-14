@@ -1,7 +1,13 @@
-export type AnalyticsEvent = { name: string; properties?: Record<string, boolean | number | string | undefined> };
+export type AnalyticsEvent = {
+  name: string;
+  properties?: Record<string, boolean | number | string | undefined>;
+};
 export type Analytics = { track: (event: AnalyticsEvent) => void };
 
-const blockedPropertyNames = new Set(["latitude", "longitude", "pushToken", "email", "phone", "query", "orderUrl"]);
+const isSensitivePropertyName = (key: string) =>
+  /(?:latitude|longitude|coordinate|push.?token|notification.?token|email|phone|query|search.?text|order.?url)/i.test(
+    key
+  );
 
 export const noOpAnalytics: Analytics = { track: () => undefined };
 export const analytics = safeAnalytics();
@@ -20,7 +26,7 @@ export function safeAnalytics(delegate: Analytics = noOpAnalytics): Analytics {
       delegate.track({
         ...event,
         properties: Object.fromEntries(
-          Object.entries(event.properties ?? {}).filter(([key]) => !blockedPropertyNames.has(key))
+          Object.entries(event.properties ?? {}).filter(([key]) => !isSensitivePropertyName(key))
         )
       })
   };

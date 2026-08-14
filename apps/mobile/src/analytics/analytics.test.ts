@@ -4,7 +4,13 @@ test("removes sensitive properties before analytics delegation", () => {
   const received: AnalyticsEvent[] = [];
   safeAnalytics({ track: event => received.push(event) }).track({
     name: "directions_tapped",
-    properties: { eventId: "safe", latitude: 1, orderUrl: "https://private" }
+    properties: {
+      eventId: "safe",
+      latitude: 1,
+      orderUrl: "https://private",
+      notificationToken: "secret",
+      searchText: "Johnstown"
+    }
   });
   expect(received).toEqual([{ name: "directions_tapped", properties: { eventId: "safe" } }]);
 });

@@ -79,7 +79,7 @@ const parsedEvents = parseEventPage({
 function matchesQuery(event: TruckEvent, query: string): boolean {
   const normalized = query.trim().toLowerCase();
   if (!normalized) return true;
-  return [event.city, event.state, event.postalCode, event.hostName].some(value =>
+  return [event.city, event.state, event.postalCode, event.hostName, event.address1, event.address2].some(value =>
     value?.toLowerCase().includes(normalized)
   );
 }
