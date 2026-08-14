@@ -35,7 +35,12 @@ These rules apply to `apps/mobile/`.
   `testID` values for interactive controls.
 - Keep feature behavior in TypeScript and native bootstrapping in iOS Swift.
 - iOS builds, Simulator runs, and CocoaPods require macOS with Xcode. From
-  Linux, use the configured `ajilus-air.local` workflow via `make help-ios`.
+  Linux, read `docs/local-development.md#remote-ios-development-machine`, run
+  `make ios-remote-doctor` first, then use the configured `ajilus-air.local`
+  workflow via `make help-ios`. Edit locally only: the remote
+  `~/on-the-hook-ios-build` checkout is an rsync mirror. Use
+  `ios-remote-build` for a Simulator build, `ios-remote-run` to launch it, and
+  `ios-remote-logs` for diagnostics; do not copy secrets to the Mac.
 
 ## Product Reference Package
 

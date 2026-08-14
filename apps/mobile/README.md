@@ -14,6 +14,12 @@ npm run ios -w @ajilus/oth
 Use `npm run lint -w @ajilus/oth` and `npm test -w @ajilus/oth` for JavaScript
 validation. iOS builds require macOS, Xcode, and CocoaPods.
 
+From Linux, build through the configured remote Mac rather than attempting a
+local Xcode build. Start with `make ios-remote-doctor`, then use
+`make ios-remote-build` or `make ios-remote-run`; the full workflow, mirror
+rules, and diagnostics are documented in
+[`docs/local-development.md`](../../docs/local-development.md#remote-ios-development-machine).
+
 ## Backend-free release data
 
 This release needs no On The Hook backend, API base URL, staging service, or mock

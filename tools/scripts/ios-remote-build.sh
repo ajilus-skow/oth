@@ -83,10 +83,26 @@ remote_dir="$1"
 export PATH="/opt/homebrew/opt/node@22/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
 cd "${remote_dir}"
-npm ci --ignore-scripts --no-audit --no-fund
+log_file="${HOME}/Library/Logs/on-the-hook-xcodebuild.log"
+mkdir -p "$(dirname "${log_file}")"
+: >"${log_file}"
+
+run_step() {
+  local label="$1"
+  shift
+  printf '%s...\n' "${label}"
+  if ! "$@" >>"${log_file}" 2>&1; then
+    printf '%s failed; last 200 log lines follow:\n' "${label}" >&2
+    tail -200 "${log_file}" >&2
+    exit 1
+  fi
+}
+
+run_step "Installing npm dependencies" npm ci --ignore-scripts --no-audit --no-fund
 cd apps/mobile/ios
-pod install
+run_step "Installing iOS pods" pod install
 test -f oth.xcworkspace/contents.xcworkspacedata
+printf 'Remote workspace ready: %s/apps/mobile/ios/oth.xcworkspace\n' "${remote_dir}"
 REMOTE_SCRIPT
 }
 
@@ -101,11 +117,16 @@ export PATH="/opt/homebrew/opt/node@22/bin:/opt/homebrew/bin:/usr/local/bin:/usr
 export DEVELOPER_DIR="/Applications/Xcode.app/Contents/Developer"
 export RCT_METRO_PORT="${metro_port}"
 cd "${remote_dir}/apps/mobile/ios"
-mkdir -p "${HOME}/Library/Logs"
-xcodebuild -workspace "${app_name}.xcworkspace" -scheme "${app_name}" -sdk iphonesimulator \
+log_file="${HOME}/Library/Logs/on-the-hook-xcodebuild.log"
+printf 'Building iOS Simulator app...\n'
+if ! xcodebuild -workspace "${app_name}.xcworkspace" -scheme "${app_name}" -sdk iphonesimulator \
   -configuration Debug -derivedDataPath build build CODE_SIGNING_ALLOWED=NO \
-  RCT_METRO_PORT="${metro_port}" \
-  | tee "${HOME}/Library/Logs/on-the-hook-xcodebuild.log"
+  RCT_METRO_PORT="${metro_port}" >>"${log_file}" 2>&1; then
+  printf 'iOS Simulator build failed; last 200 log lines follow:\n' >&2
+  tail -200 "${log_file}" >&2
+  exit 1
+fi
+printf 'iOS Simulator build succeeded. Full log: %s\n' "${log_file}"
 REMOTE_SCRIPT
 }
 
