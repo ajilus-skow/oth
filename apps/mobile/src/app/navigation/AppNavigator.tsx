@@ -2,6 +2,7 @@ import { NavigationContainer, type LinkingOptions } from "@react-navigation/nati
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StyleSheet, Text, View } from "react-native";
+import Svg, { Path } from "react-native-svg";
 import { PrimaryButton, SectionHeader } from "../../design/primitives";
 import { colors, spacing } from "../../design/tokens";
 import { MoreScreen } from "../../features/more/MoreScreen";
@@ -53,13 +54,34 @@ function Placeholder({ title }: { title: string }) {
 function TabNavigator() {
   return (
     <Tabs.Navigator
-      screenOptions={{ headerStyle: { backgroundColor: colors.brandYellow }, tabBarActiveTintColor: colors.brandBlue }}
+      screenOptions={{
+        headerStyle: { backgroundColor: colors.brandYellow },
+        tabBarActiveTintColor: colors.brandBlue,
+        tabBarInactiveTintColor: colors.mutedInk,
+        tabBarIcon: ({ color }) => <FishHookIcon color={color} />
+      }}
     >
       <Tabs.Screen name="Home" component={HomeScreen} options={{ title: "Home" }} />
       <Tabs.Screen name="FindUs" component={FindUsScreen} options={{ title: "Find Us" }} />
       <Tabs.Screen name="Menu" component={MenuScreen} options={{ title: "Menu" }} />
       <Tabs.Screen name="More" component={MoreScreen} />
     </Tabs.Navigator>
+  );
+}
+
+function FishHookIcon({ color }: { color: string }) {
+  return (
+    <Svg width={28} height={28} viewBox="0 0 32 32" fill="none" accessible={false}>
+      <Path
+        d="M9 4c5.5 0 10 4.5 10 10v7c0 4.4-3.6 8-8 8s-8-3.6-8-8c0-2.8 2.2-5 5-5s5 2.2 5 5"
+        stroke={color}
+        strokeWidth={2.75}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path d="m17.5 5.5 3-3v6l-3-3Z" fill={color} />
+      <Path d="m13 21-3 3 5 .5" stroke={color} strokeWidth={2.25} strokeLinecap="round" strokeLinejoin="round" />
+    </Svg>
   );
 }
 
