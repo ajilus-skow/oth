@@ -47,7 +47,7 @@ export function AboutScreen() {
       <Text style={styles.stat}>About 10 million meals of fish and chips served and counting.</Text>
       {sections.map(([title, body, source]) => (
         <Card key={title} style={styles.card}>
-          <Image source={source} style={styles.image} />
+          <Image source={source} style={styles.image} accessible={false} />
           <Text accessibilityRole="header" style={styles.heading}>
             {title}
           </Text>

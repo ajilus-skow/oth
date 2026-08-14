@@ -119,7 +119,12 @@ export function EventDetailScreen() {
             </Pressable>
           ) : null}
           {event.orderUrl && validateExternalUrl(event.orderUrl, "web") ? (
-            <Pressable accessibilityRole="button" onPress={() => void order()}>
+            <Pressable
+              accessibilityHint="Opens the ordering website"
+              accessibilityLabel="Order food, opens externally"
+              accessibilityRole="button"
+              onPress={() => void order()}
+            >
               <Text style={styles.link}>Order Food ↗</Text>
             </Pressable>
           ) : null}

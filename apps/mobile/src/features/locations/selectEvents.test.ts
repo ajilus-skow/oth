@@ -40,3 +40,19 @@ test("keeps local calendar day and clock time across a DST boundary", () => {
   expect(rendered).toContain("Mar 8");
   expect(rendered).toContain("11:00 AM");
 });
+
+test("selects a deterministic 250-event local schedule without dropping visits", () => {
+  const now = new Date("2026-08-14T00:00:00Z");
+  const events = Array.from({ length: 250 }, (_, index) =>
+    event({
+      eventId: `event-${String(250 - index).padStart(3, "0")}`,
+      startsAt: "2026-08-15T11:00:00-05:00",
+      endsAt: "2026-08-15T19:00:00-05:00"
+    })
+  );
+
+  const selected = selectUpcomingEvents(events, now);
+
+  expect(selected).toHaveLength(250);
+  expect(selected.map(item => item.eventId)).toEqual([...selected.map(item => item.eventId)].sort());
+});

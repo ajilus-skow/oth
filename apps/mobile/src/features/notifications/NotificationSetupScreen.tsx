@@ -67,8 +67,10 @@ export function NotificationSetupScreen() {
       <TextInput
         accessibilityLabel="Home area, city and state or ZIP"
         autoCapitalize="words"
+        accessibilityHint="Enter a city and state or a ZIP code before enabling alerts"
         onChangeText={homeArea => setPreferences(current => ({ ...current, homeArea }))}
         placeholder="City, state, or ZIP"
+        placeholderTextColor={colors.mutedInk}
         style={styles.input}
         value={preferences.homeArea}
       />
@@ -78,6 +80,7 @@ export function NotificationSetupScreen() {
             <Text style={styles.switchLabel}>{label}</Text>
             <Switch
               accessibilityLabel={label}
+              accessibilityState={{ checked: preferences[key] }}
               onValueChange={value => setPreferences(current => ({ ...current, [key]: value }))}
               trackColor={{ false: colors.border, true: colors.brandBlue }}
               value={preferences[key]}

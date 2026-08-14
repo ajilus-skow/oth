@@ -56,6 +56,9 @@ function TabNavigator() {
     <Tabs.Navigator
       screenOptions={{
         headerStyle: { backgroundColor: colors.brandYellow },
+        // Keep the compact native header within its fixed safe-area height at
+        // Accessibility text sizes. Screen content remains Dynamic Type aware.
+        headerTitleAllowFontScaling: false,
         tabBarActiveTintColor: colors.brandBlue,
         tabBarInactiveTintColor: colors.mutedInk,
         tabBarIcon: ({ color }) => <FishHookIcon color={color} />

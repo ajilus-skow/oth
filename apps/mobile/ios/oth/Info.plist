@@ -38,8 +38,6 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>On The Hook uses your location only while you choose Near Me to show nearby truck visits.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>On The Hook uses your location only while you choose Near Me to show nearby truck visits.</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>On The Hook uses your calendar only to add a truck visit when you choose Add to Calendar.</string>
 	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>

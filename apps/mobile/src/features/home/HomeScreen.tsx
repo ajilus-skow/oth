@@ -41,10 +41,12 @@ export function HomeScreen() {
           <View style={styles.wordmark}>
             <OfficialWordmark accessibilityLabel="On The Hook" accessibilityRole="image" height={88} width={160} />
           </View>
-          <Text accessibilityRole="header" style={styles.heroTitle}>
+          <Text accessibilityRole="header" maxFontSizeMultiplier={1.4} style={styles.heroTitle}>
             {hero.title}
           </Text>
-          <Text style={styles.heroText}>{hero.subtitle}</Text>
+          <Text maxFontSizeMultiplier={1.4} style={styles.heroText}>
+            {hero.subtitle}
+          </Text>
           <PrimaryButton
             accessibilityLabel="Find a truck near me"
             onPress={() => navigation.navigate("Tabs", { screen: "FindUs" } as never)}
@@ -54,8 +56,8 @@ export function HomeScreen() {
         </View>
       </ImageBackground>
       <View style={styles.storySection}>
-        <Image source={images.brand.fishLineArt} style={styles.fishDecoration} accessibilityElementsHidden />
-        <Image source={images.brand.friesLineArt} style={styles.friesDecoration} accessibilityElementsHidden />
+        <Image source={images.brand.fishLineArt} style={styles.fishDecoration} accessible={false} />
+        <Image source={images.brand.friesLineArt} style={styles.friesDecoration} accessible={false} />
         <Text style={styles.eyebrow}>TRADITION WITH A TWIST</Text>
         <Text accessibilityRole="header" style={styles.heading}>
           Why On The Hook

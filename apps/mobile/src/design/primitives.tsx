@@ -27,7 +27,9 @@ export function PrimaryButton({ children, accessibilityLabel, ...props }: PropsW
       style={styles.primaryButton}
       {...props}
     >
-      <Text style={styles.primaryButtonText}>{children}</Text>
+      <Text maxFontSizeMultiplier={1.4} style={styles.primaryButtonText}>
+        {children}
+      </Text>
     </Pressable>
   );
 }

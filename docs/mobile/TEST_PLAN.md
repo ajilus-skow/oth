@@ -101,6 +101,26 @@ Automate where tooling permits, then manually verify:
 - color contrast at WCAG AA target for text/control states
 - Reduce Motion behavior
 
+### iOS VoiceOver and display-settings checklist
+
+On an available iOS Simulator or device, complete this focused pass before the
+release candidate is submitted:
+
+- Set Content Size to an Accessibility size and Increase Contrast on. Confirm
+  the Home hero CTA, Find Us search and filter controls, event cards, and
+  notification settings remain visible and tappable.
+- Turn on VoiceOver and move through each tab, checking that the tab label and
+  selected state are announced, decorative food photography is skipped, and
+  headings precede their related content.
+- Check external actions—Directions, Order Food, web links, mail, and phone—
+  announce both their purpose and, where supplied, that they leave the app.
+- On Find Us, use the search field, state/date controls, result list, and
+  event detail actions without relying on a map.
+- Confirm switches announce their current on/off state and the notification
+  location field includes guidance before alerts can be enabled.
+- Toggle Reduce Motion. The app currently has no custom motion, so no visual
+  transition should bypass the system setting.
+
 ## Visual QA
 
 Reference widths:

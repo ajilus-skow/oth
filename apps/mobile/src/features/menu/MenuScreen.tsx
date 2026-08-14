@@ -57,6 +57,7 @@ export function MenuScreen() {
           {item.imageKey && item.imageKey in menuImages ? (
             <Image
               accessibilityIgnoresInvertColors
+              accessible={false}
               source={menuImages[item.imageKey as ImageKey]}
               style={styles.image}
             />
